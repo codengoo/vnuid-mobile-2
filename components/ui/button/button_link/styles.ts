@@ -7,7 +7,8 @@ export const styles = StyleSheet.create({
     paddingVertical: Space.sm
   },
   title: {
-    fontFamily: FontFamily.Prompt.normal.semiBold,
+    fontFamily: FontFamily.Prompt,
+    fontWeight: "600",
     color: COLOR.text,
     fontSize: FontSize.md,
   },

@@ -1,12 +1,12 @@
-import { Color, FontFamily, fontSize } from '@/constants';
+import { Colors, FontFamily, fontSize } from "@/constants";
 import {
   BaseToast,
   default as OriginalToast,
   ToastConfig,
-} from 'react-native-toast-message';
+} from "react-native-toast-message";
 
 const toastConfig: ToastConfig = {
-  success: props => (
+  success: (props) => (
     <BaseToast
       {...props}
       style={{
@@ -14,26 +14,28 @@ const toastConfig: ToastConfig = {
         borderRadius: 16,
         elevation: 4,
         marginTop: 12,
-        height: 'auto',
+        height: "auto",
       }}
       text1Style={{
-        fontFamily: FontFamily.Prompt.normal.semiBold,
+        fontFamily: FontFamily.Prompt,
+        fontWeight: "600",
         fontSize: fontSize(16),
       }}
       text2Style={{
-        fontFamily: FontFamily.Prompt.normal.medium,
+        fontFamily: FontFamily.Prompt,
+        fontWeight: "600",
         fontSize: fontSize(12),
       }}
       contentContainerStyle={{
         borderWidth: 1.5,
-        borderColor: Color.green300,
+        borderColor: Colors.green300,
         borderRadius: 16,
         paddingVertical: 12,
       }}
     />
   ),
 
-  error: props => (
+  error: (props) => (
     <BaseToast
       {...props}
       style={{
@@ -41,21 +43,23 @@ const toastConfig: ToastConfig = {
         borderRadius: 16,
         elevation: 4,
         marginTop: 12,
-        height: 'auto',
+        height: "auto",
       }}
       text1Style={{
-        fontFamily: FontFamily.Prompt.normal.semiBold,
+        fontFamily: FontFamily.Prompt,
+        fontWeight: "600",
         fontSize: fontSize(16),
-        color: Color.red300,
+        color: Colors.red300,
       }}
       text2Style={{
-        fontFamily: FontFamily.Prompt.normal.medium,
+        fontFamily: FontFamily.Prompt,
+        fontWeight: "600",
         fontSize: fontSize(12),
       }}
       contentContainerStyle={{
         borderWidth: 1.5,
-        borderColor: Color.red300,
-        backgroundColor: Color.red100,
+        borderColor: Colors.red300,
+        backgroundColor: Colors.red100,
         borderRadius: 16,
         paddingVertical: 12,
       }}

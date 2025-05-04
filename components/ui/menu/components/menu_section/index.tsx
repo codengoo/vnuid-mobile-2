@@ -1,4 +1,4 @@
-import { Color, space } from '@/constants';
+import { Colors, space } from '@/constants';
 import { View } from 'react-native';
 import { AtMenuItem, IMenuItemProps } from '../menu_item';
 
@@ -9,7 +9,7 @@ export function MenuSection({items}: IMenuSectionProps) {
   return (
     <View
       style={{
-        backgroundColor: Color.yellow400,
+        backgroundColor: Colors.yellow400,
         borderRadius: space(12),
         padding: space(12),
       }}>

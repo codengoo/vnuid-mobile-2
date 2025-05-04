@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
 
   input: {
     flexGrow: 1,
-    fontFamily: FontFamily.Prompt.normal.semiBold,
+    fontFamily: FontFamily.Prompt,
+    fontWeight: "600",
     fontSize: FontSize.md
   }
 });

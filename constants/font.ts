@@ -1,6 +1,6 @@
-import { Dimensions } from 'react-native';
+import { Dimensions } from "react-native";
 
-const {fontScale, scale} = Dimensions.get('screen');
+const { fontScale, scale } = Dimensions.get("screen");
 
 export const fontSize = (fontSize: number) =>
   ((fontSize / fontScale) * 3) / scale;
@@ -15,33 +15,8 @@ export const FontSize = {
 };
 
 export const FontFamily = {
-  Lobster: {
-    regular: 'Lobster-Regular',
-  },
-  Prompt: {
-    normal: {
-      black: 'Prompt-Black',
-      bold: 'Prompt-Bold',
-      extraBold: 'Prompt-ExtraBold',
-      extraLight: 'Prompt-ExtraLight',
-      light: 'Prompt-Light',
-      medium: 'Prompt-Medium',
-      regular: 'Prompt-Regular',
-      semiBold: 'Prompt-SemiBold',
-      thin: 'Prompt-Thin',
-    },
-    italic: {
-      black: 'Prompt-BlackItalic',
-      bold: 'Prompt-BoldItalic',
-      extraBold: 'Prompt-ExtraBoldItalic',
-      extraLight: 'Prompt-ExtraLightItalic',
-      light: 'Prompt-LightItalic',
-      medium: 'Prompt-MediumItalic',
-      regular: 'Prompt-Italic',
-      semiBold: 'Prompt-SemiBoldItalic',
-      thin: 'Prompt-ThinItalic',
-    },
-  },
+  Lobster: "Lobster",
+  Prompt: "Prompt",
 };
 
 const FONT = {

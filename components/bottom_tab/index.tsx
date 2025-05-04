@@ -1,4 +1,4 @@
-import { COLOR, Color, space } from '@/constants';
+import { COLOR, Colors, space } from '@/constants';
 import { useTabBarVisibility } from '@/context';
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { TouchableOpacity, View } from 'react-native';
@@ -30,7 +30,7 @@ export default function BottomTabbar({
         }}>
         <View
           style={{
-            backgroundColor: Color.black700,
+            backgroundColor: Colors.black700,
             borderRadius: space(99),
             padding: space(12),
             gap: space(16),
@@ -42,7 +42,7 @@ export default function BottomTabbar({
             const isFocused = state.index === index;
             const icon = options.tabBarIcon?.({
               focused: isFocused,
-              color: isFocused ? COLOR.text : Color.white,
+              color: isFocused ? COLOR.text : Colors.white,
               size: 24,
             });
 
@@ -76,7 +76,7 @@ export default function BottomTabbar({
                     borderRadius: space(99),
                     padding: space(12),
                   },
-                  isFocused && {backgroundColor: Color.white},
+                  isFocused && {backgroundColor: Colors.white},
                 ]}>
                 {icon}
               </TouchableOpacity>

@@ -1,4 +1,4 @@
-import { Color, space } from '@/constants';
+import { Colors, space } from '@/constants';
 import { useMemo } from 'react';
 import { Image, StyleSheet, View } from 'react-native';
 
@@ -38,7 +38,7 @@ export function AtAvatar({
 const style = (size: number, borderSize: number) =>
   StyleSheet.create({
     container: {
-      borderColor: Color.black700,
+      borderColor: Colors.black700,
       borderWidth: space(borderSize),
     },
 

@@ -1,5 +1,5 @@
 import { Icon as IconUI } from '@/components/ui';
-import { Color } from '@/constants';
+import { Colors } from '@/constants';
 import { Dispatch, SetStateAction, useState } from 'react';
 import {
   StyleProp,
@@ -51,9 +51,9 @@ export function AtInput({
       {mode === 'password' ? (
         <TouchableOpacity onPress={handleToggle}>
           {isHideText ? (
-            <IconUI.EyeCloseIcon stroke={2} color={Color.black700} />
+            <IconUI.EyeCloseIcon stroke={2} color={Colors.black700} />
           ) : (
-            <IconUI.EyeOpenIcon stroke={2} color={Color.black700} />
+            <IconUI.EyeOpenIcon stroke={2} color={Colors.black700} />
           )}
         </TouchableOpacity>
       ) : null}

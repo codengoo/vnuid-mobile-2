@@ -22,7 +22,49 @@
     },
     "plugins": [
       "expo-router",
-      "react-native-vision-camera"
+      "react-native-vision-camera",
+      [
+        "expo-font",
+        {
+          "fonts": [
+            {
+              "fontFamily": "Lobster",
+              "fontDefinitions": [
+                {
+                  "path": "./assets/fonts/Lobster-Regular.ttf",
+                  "weight": 400
+                }
+              ]
+            },
+            {
+              "fontFamily": "Prompt",
+              "fontDefinitions": [
+                {
+                  "path": "./assets/fonts/Prompt-Regular.ttf",
+                  "weight": 400
+                },
+                {
+                  "path": "./assets/fonts/Prompt-Medium.ttf",
+                  "weight": 500
+                },
+                {
+                  "path": "./assets/fonts/Prompt-SemiBold.ttf",
+                  "weight": 600
+                },
+                {
+                  "path": "./assets/fonts/Prompt-Bold.ttf",
+                  "weight": 700
+                },
+                {
+                  "path": "./assets/fonts/Prompt-Italic.ttf",
+                  "weight": 400,
+                  "style": "italic"
+                }
+              ]
+            }
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

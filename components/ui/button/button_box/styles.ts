@@ -1,4 +1,4 @@
-import { Color, COLOR, FontFamily, FontSize, space, Space } from "@/constants";
+import { COLOR, Colors, space, Space, Styles } from "@/constants";
 import { StyleSheet } from "react-native";
 
 export interface IAtButtonStyle {
@@ -14,7 +14,7 @@ export const style = ({ color = "default", disabled }: IAtButtonStyle) =>
         color === "default"
           ? COLOR.backgroundButton
           : color === "green"
-          ? Color.green300
+          ? Colors.green300
           : COLOR.backgroundButtonHighlight,
       borderRadius: Space.sd,
       borderColor: COLOR.borderButton,
@@ -25,6 +25,7 @@ export const style = ({ color = "default", disabled }: IAtButtonStyle) =>
       flexDirection: "row",
       justifyContent: "space-between",
       alignItems: "center",
+      gap: Space.md,
     },
 
     widthFull: {
@@ -38,15 +39,15 @@ export const style = ({ color = "default", disabled }: IAtButtonStyle) =>
       gap: Space.md,
     },
 
-    title: {
-      fontFamily: FontFamily.Prompt.normal.semiBold,
+    label: {
+      ...Styles.text,
+      fontWeight: "500",
       color:
         color === "default"
           ? COLOR.text
           : color === "green"
           ? COLOR.textButton
           : COLOR.text,
-      fontSize: FontSize.md,
     },
 
     center: {

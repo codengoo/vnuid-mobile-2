@@ -1,7 +1,7 @@
 import { COLOR, space } from "@/constants";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { ReactNode, useMemo } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { ChevronRightIcon } from "../../icon";
 import { IIconProp } from "../../icon/type";
 import { IAtButtonStyle, style } from "./styles";
 
@@ -43,9 +43,16 @@ export function AtButtonBox({
             stroke={space(2)}
           />
         )}
-        {title && <Text style={styles.title}>{title}</Text>}
+        {title && <Text style={styles.label}>{title}</Text>}
       </View>
-      {expandable && <ChevronRightIcon color={COLOR.text} stroke={space(2)} />}
+
+      {expandable && (
+        <FontAwesome6
+          name="chevron-right"
+          color={COLOR.text}
+          stroke={space(2)}
+        />
+      )}
     </TouchableOpacity>
   );
 }

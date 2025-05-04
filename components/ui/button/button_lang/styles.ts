@@ -1,4 +1,4 @@
-import { Color, space, Space } from '@/constants';
+import { Colors, space, Space } from '@/constants';
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: Space.sm,
     alignItems: 'center',
-    backgroundColor: Color.green200,
+    backgroundColor: Colors.green200,
     padding: space(4),
     borderRadius: space(99),
   },

@@ -1,4 +1,4 @@
-export const Color = {
+export const Colors = {
   yellow100: "#FFF9F1",
   yellow200: "#FFECCE",
   yellow300: "#FFE3B2",
@@ -23,19 +23,19 @@ export const Color = {
 };
 
 export const COLOR = {
-  background: Color.yellow100,
-  backgroundBox: Color.green200,
-  backgroundBoxHighlight: Color.yellow400,
-  backgroundButtonActive: Color.green300,
-  backgroundButtonHighlight: Color.yellow500,
-  backgroundButton: Color.yellow100,
-  backgroundInput: Color.yellow100,
+  background: Colors.yellow100,
+  backgroundBox: Colors.green200,
+  backgroundBoxHighlight: Colors.yellow400,
+  backgroundButtonActive: Colors.green300,
+  backgroundButtonHighlight: Colors.yellow500,
+  backgroundButton: Colors.yellow100,
+  backgroundInput: Colors.yellow100,
 
-  text: Color.black700,
-  textSub: Color.black500,
-  textButton: Color.white,
-  textButtonHighlight: Color.black700,
+  text: Colors.black700,
+  textSub: Colors.black500,
+  textButton: Colors.white,
+  textButtonHighlight: Colors.black700,
 
-  borderButton: Color.green700,
-  borderInput: Color.green700,
+  borderButton: Colors.green700,
+  borderInput: Colors.green700,
 };

@@ -1,4 +1,4 @@
-import { Color, FontFamily, space } from '@/constants';
+import { Colors, FontFamily, space } from '@/constants';
 import { useEffect } from 'react';
 import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Animated, {
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Color.yellow100,
+    backgroundColor: Colors.yellow100,
     flexDirection: 'column',
     gap: space(12),
     padding: space(32),

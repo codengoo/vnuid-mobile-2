@@ -1,4 +1,5 @@
 package com.anonymous.vnuid
+import com.facebook.react.common.assets.ReactFontManager
 
 import android.app.Application
 import android.content.res.Configuration
@@ -42,6 +43,10 @@ class MainApplication : Application(), ReactApplication {
 
   override fun onCreate() {
     super.onCreate()
+    // @generated begin xml-fonts-init - expo prebuild (DO NOT MODIFY) sync-06f6edf34e4ee3c2c9ba091cfb396181a43c9e54
+    ReactFontManager.getInstance().addCustomFont(this, "Lobster", R.font.xml_lobster)
+    ReactFontManager.getInstance().addCustomFont(this, "Prompt", R.font.xml_prompt)
+    // @generated end xml-fonts-init
     SoLoader.init(this, OpenSourceMergedSoMapping)
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
