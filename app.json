@@ -20,7 +20,10 @@
       "edgeToEdgeEnabled": true,
       "package": "com.anonymous.vnuid"
     },
-    "plugins": ["expo-router", "react-native-vision-camera"],
+    "plugins": [
+      "expo-router",
+      "react-native-vision-camera"
+    ],
     "experiments": {
       "typedRoutes": true
     }
