@@ -17,7 +17,7 @@ export default function Onboarding() {
   const { t } = useTranslation("onboard");
 
   const handlePressLogin = () => {
-    router.push("/");
+    router.push("/login");
   };
 
   return (
@@ -71,12 +71,10 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    ...Styles.content,
     flex: 1,
     padding: Space.md,
-    paddingTop: Space.md,
     paddingBottom: Space.sl,
-    justifyContent: "space-between",
-    flexDirection: "column",
   },
 
   intro: {
@@ -109,12 +107,12 @@ const styles = StyleSheet.create({
   },
 
   titleText: {
-    ...Styles.header,
+    ...Styles.headerText,
     fontSize: fontSize(40),
     fontFamily: FontFamily.Lobster,
   },
 
   descriptionText: {
-    ...Styles.text,
+    ...Styles.subText,
   },
 });
