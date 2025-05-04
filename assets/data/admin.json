@@ -1,0 +1,14 @@
+{
+  "main": {
+    "phone": "02437548864",
+    "email": "ctsv@vnu.edu.vn",
+    "address": "Phòng 104 - Nhà E3, 144 Xuân Thủy, Cầu Giấy, Hà Nội, Việt Nam"
+  },
+  "details": [
+    {"type": "phone", "value": "02437547461"},
+    {"type": "phone", "value": "02437547460"},
+    {"type": "phone", "value": "023145672345"},
+    {"type": "email", "value": "ctsv@vnu.edu.vn"},
+    {"type": "address", "value": "Phòng 104 - Nhà E3, 144 Xuân Thủy, Cầu Giấy, Hà Nội, Việt Nam"}
+  ]
+}

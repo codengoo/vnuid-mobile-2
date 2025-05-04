@@ -1,0 +1,14 @@
+{
+  "try_other_way": "Thử cách khác",
+  "login_helper": "Ứng dụng này được thiết kế dành riêng cho sinh viên VNU. Vui lòng đăng nhập để xác minh danh tính của bạn.",
+  "alternate_login_helper": "Sử dụng một trong các cách sau để đăng nhập vào tài khoản của bạn",
+  "using_password": "Dùng mật khẩu",
+  "using_NFC": "Dùng NFC",
+  "go_back": "Trở về",
+  "helper_qr_title": "Sử  dụng điện thoại của bạn để quét QR",
+  "helper_qr_details": "Bạn sẽ thấy một thông báo yêu cầu cho phép đăng nhập trên thiết bị của bạn",
+  "toast_failed": "Đăng nhập thất bại",
+  "toast_success": "Đăng nhập thành công",
+  "toast_failed_description": "Không thể đăng nhập được",
+  "toast_success_description": "Đăng nhập thành công rồi"
+}

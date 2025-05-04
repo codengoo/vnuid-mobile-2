@@ -1,0 +1,14 @@
+{
+  "try_other_way": "Try another way",
+  "login_helper": "This app is specifically designed for students of VNU. Please log in to verify your identity",
+  "alternate_login_helper": "Using one of these alternative methods to login to your account.",
+  "using_password": "Using your password",
+  "using_NFC": "Using your NFC",
+  "go_back": "Back",
+  "helper_qr_title": "Using your phone to scan this code",
+  "helper_qr_details": "You will see a popup in your phone asking you accept to login on this device",
+  "toast_failed": "Login failed",
+  "toast_success": "Login successfully",
+  "toast_failed_description": "Could not login now",
+  "toast_success_description": "Login successfully, hehehe"
+}
