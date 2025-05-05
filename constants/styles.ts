@@ -39,6 +39,12 @@ export const Styles = StyleSheet.create({
     fontFamily: FontFamily.Prompt,
   },
 
+  sectionText: {
+    ...TextStyle.text,
+    fontSize: FontSize.sl,
+    fontWeight: "600",
+  },
+
   content: {
     display: "flex",
     padding: space(40),

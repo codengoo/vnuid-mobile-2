@@ -12,7 +12,6 @@
     "linking": "npx expo prebuild"
   },
   "dependencies": {
-    "@expo/vector-icons": "^14.1.0",
     "@gorhom/bottom-sheet": "^5.1.2",
     "@react-native-async-storage/async-storage": "2.1.2",
     "@react-native-google-signin/google-signin": "^13.2.0",

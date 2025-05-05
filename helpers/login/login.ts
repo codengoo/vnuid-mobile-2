@@ -1,6 +1,7 @@
 import { IResponseLogin } from "@/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import { router } from "expo-router";
 import DeviceInfo from "react-native-device-info";
 import { STG_AUTH_2FA_TOKEN, STG_AUTH_TOKEN } from "../constants";
 import { axios } from "../network";
@@ -11,11 +12,12 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 
-async function switchLogin(data: IResponseLogin, status: number) {
+async function switchLogin(data: IResponseLogin, status: number) {  
   switch (status) {
     case 200:
       await AsyncStorage.setItem(STG_AUTH_TOKEN, data.token);
-      // navigationRef.navigate('Main');
+      
+      router.navigate("/home");
       break;
 
     case 202:
@@ -33,10 +35,9 @@ async function switchLogin(data: IResponseLogin, status: number) {
 async function loginGoogle(): Promise<string | undefined> {
   try {
     const t = await GoogleSignin.hasPlayServices();
-    console.log("🚀 ~ loginGoogle ~ t:", t)
-    
-    const userInfo = await GoogleSignin.signIn();
+    if (!t) return;
 
+    const userInfo = await GoogleSignin.signIn();
     return userInfo.data?.idToken || void 0;
   } catch (error) {
     console.error("Google Sign-In Error:", error);
@@ -81,9 +82,9 @@ export async function signInWithGoogle() {
       device_name: deviceName,
     });
 
-    console.log(response.data);
     await switchLogin(response.data, response.status);
   } catch (error) {
+    console.log(error);
     throw error;
   }
 }

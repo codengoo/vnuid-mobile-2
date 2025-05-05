@@ -1,15 +1,15 @@
-import { Icon as IconUI } from '@/components/ui';
-import { Colors } from '@/constants';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Icon as IconUI } from "@/components/ui";
+import { Colors } from "@/constants";
+import { Dispatch, SetStateAction, useState } from "react";
 import {
   StyleProp,
   TextInput,
   TouchableOpacity,
   View,
   ViewStyle,
-} from 'react-native';
-import { IIcon } from '../icon';
-import { styles } from './styles';
+} from "react-native";
+import { IIcon } from "../icon";
+import { styles } from "./styles";
 
 interface AtInputProps {
   icon?: IIcon;
@@ -17,7 +17,7 @@ interface AtInputProps {
   onEnter?: () => void;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
-  mode: 'text' | 'password' | 'numeric';
+  mode: "text" | "password" | "numeric";
   style?: StyleProp<ViewStyle>;
   endComponent?: React.ReactNode;
 }
@@ -28,12 +28,12 @@ export function AtInput({
   onEnter,
   value,
   setValue,
-  mode = 'text',
+  mode = "text",
   style,
-  endComponent
+  endComponent,
 }: AtInputProps) {
   const [isHideText, setHideText] = useState(true);
-  const handleToggle = () => setHideText(prev => !prev);
+  const handleToggle = () => setHideText((prev) => !prev);
   return (
     <View style={[styles.container, style]}>
       {Icon && <Icon stroke={2} />}
@@ -44,11 +44,11 @@ export function AtInput({
         onSubmitEditing={onEnter}
         returnKeyType="done"
         value={value}
-        onChange={e => setValue(e.nativeEvent.text)}
-        keyboardType={mode == 'numeric' ? 'numeric' : 'default'}
+        onChange={(e) => setValue(e.nativeEvent.text)}
+        keyboardType={mode == "numeric" ? "numeric" : "default"}
       />
 
-      {mode === 'password' ? (
+      {mode === "password" ? (
         <TouchableOpacity onPress={handleToggle}>
           {isHideText ? (
             <IconUI.EyeCloseIcon stroke={2} color={Colors.black700} />

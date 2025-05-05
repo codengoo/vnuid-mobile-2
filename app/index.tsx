@@ -1,4 +1,4 @@
-import { AtButtonBox } from "@/components";
+import { AtButtonBox, Icon } from "@/components";
 import {
   COLOR,
   Colors,
@@ -8,7 +8,6 @@ import {
   space,
   Styles,
 } from "@/constants";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, StyleSheet, Text, View } from "react-native";
@@ -35,16 +34,8 @@ export default function Onboarding() {
         <View>
           <View style={styles.stepWrapper}>
             <View style={styles.dot}></View>
-            <FontAwesome6
-              name="arrow-right-to-bracket"
-              size={Space.sd}
-              color={COLOR.text}
-            />
-            <FontAwesome6
-              name="fingerprint"
-              size={Space.sd}
-              color={COLOR.text}
-            />
+            <Icon.LoginIcon size={space(18)} color={COLOR.text} stroke={2.5} />
+            <Icon.HomeIcon size={space(18)} color={COLOR.text} stroke={2.5}/>
           </View>
 
           <View style={styles.intro}>

@@ -8,7 +8,6 @@ import {
 import { GoogleIcon, QRIcon } from "@/components/ui/icon";
 import { COLOR, Space, space, Styles } from "@/constants";
 import { signInWithGoogle } from "@/helpers/login";
-import { FontAwesome6 } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -91,19 +90,8 @@ export default function LoginMainScreen() {
             // onPress={navigateToQRLogin}
           />
 
-          <TouchableOpacity
-            style={{
-              padding: space(12),
-              borderWidth: space(2),
-              borderColor: COLOR.text,
-              borderRadius: space(999),
-            }}
-          >
-            <FontAwesome6
-              name="fingerprint"
-              size={Space.lg}
-              color={COLOR.text}
-            />
+          <TouchableOpacity style={styles.touchBtn}>
+            <Icon.FingerprintIcon size={Space.lg} color={COLOR.text} stroke={2} />
           </TouchableOpacity>
 
           <AtButtonLink title={t("try_other_way")} onPress={showModal} />
@@ -141,6 +129,13 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
     width: "100%",
     paddingHorizontal: Space.sd,
+  },
+
+  touchBtn: {
+    padding: space(12),
+    borderWidth: space(2),
+    borderColor: COLOR.text,
+    borderRadius: space(999),
   },
 
   container: {
