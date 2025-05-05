@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { COLOR } from "./colors";
-import { FontFamily, FontSize } from "./font";
+import { FontFamily, fontSize, FontSize } from "./font";
 import { Space, space } from "./space";
 
 const TextStyle = StyleSheet.create({
@@ -43,6 +43,13 @@ export const Styles = StyleSheet.create({
     ...TextStyle.text,
     fontSize: FontSize.sl,
     fontWeight: "600",
+  },
+
+  appText: {
+    ...TextStyle.text,
+    fontSize: fontSize(36),
+    fontWeight: "600",
+    fontFamily: FontFamily.Lobster,
   },
 
   content: {

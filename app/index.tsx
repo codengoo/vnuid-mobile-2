@@ -1,13 +1,5 @@
 import { AtButtonBox, Icon } from "@/components";
-import {
-  COLOR,
-  Colors,
-  FontFamily,
-  fontSize,
-  Space,
-  space,
-  Styles,
-} from "@/constants";
+import { COLOR, Colors, Space, space, Styles } from "@/constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, StyleSheet, Text, View } from "react-native";
@@ -35,11 +27,11 @@ export default function Onboarding() {
           <View style={styles.stepWrapper}>
             <View style={styles.dot}></View>
             <Icon.LoginIcon size={space(18)} color={COLOR.text} stroke={2.5} />
-            <Icon.HomeIcon size={space(18)} color={COLOR.text} stroke={2.5}/>
+            <Icon.HomeIcon size={space(18)} color={COLOR.text} stroke={2.5} />
           </View>
 
           <View style={styles.intro}>
-            <Text style={styles.titleText}>Attendance</Text>
+            <Text style={Styles.appText}>Attendance</Text>
             <Text style={styles.descriptionText}>{t("description")}</Text>
           </View>
         </View>
@@ -95,12 +87,6 @@ const styles = StyleSheet.create({
     height: "50%",
     borderBottomEndRadius: space(60),
     overflow: "hidden",
-  },
-
-  titleText: {
-    ...Styles.headerText,
-    fontSize: fontSize(40),
-    fontFamily: FontFamily.Lobster,
   },
 
   descriptionText: {

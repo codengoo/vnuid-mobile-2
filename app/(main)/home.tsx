@@ -56,7 +56,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container} edges={["top"]}>
       <View style={styles.header}>
         <View>
-          <Text style={Styles.sectionText}>Xin chào, Tuấn Nghĩa</Text>
+          <Text style={Styles.appText}>Xin chào, Tuấn Nghĩa</Text>
           <Text style={styles.text_sub_heading}>Buổi trưa vui vẻ nhé</Text>
         </View>
         <Image

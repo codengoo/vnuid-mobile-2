@@ -1,4 +1,3 @@
-import { Icon as IconUI } from "@/components/ui";
 import { Colors } from "@/constants";
 import { Dispatch, SetStateAction, useState } from "react";
 import {
@@ -8,7 +7,7 @@ import {
   View,
   ViewStyle,
 } from "react-native";
-import { IIcon } from "../icon";
+import { EyeCloseIcon, EyeOpenIcon, IIcon } from "../icon";
 import { styles } from "./styles";
 
 interface AtInputProps {
@@ -51,9 +50,9 @@ export function AtInput({
       {mode === "password" ? (
         <TouchableOpacity onPress={handleToggle}>
           {isHideText ? (
-            <IconUI.EyeCloseIcon stroke={2} color={Colors.black700} />
+            <EyeCloseIcon stroke={2} color={Colors.black700} />
           ) : (
-            <IconUI.EyeOpenIcon stroke={2} color={Colors.black700} />
+            <EyeOpenIcon stroke={2} color={Colors.black700} />
           )}
         </TouchableOpacity>
       ) : null}
