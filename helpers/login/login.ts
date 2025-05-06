@@ -4,7 +4,7 @@ import { GoogleSignin } from "@react-native-google-signin/google-signin";
 import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
 import DeviceInfo from "react-native-device-info";
-import { STG_AUTH_2FA_TOKEN, STG_AUTH_TOKEN } from "../constants";
+import { STG_AUTH_2FA_TOKEN, STG_AUTH_BIO, STG_AUTH_TOKEN, STG_UID } from "../constants";
 import { axios } from "../network";
 
 GoogleSignin.configure({
@@ -16,6 +16,7 @@ async function switchLogin(data: IResponseLogin, status: number) {
   switch (status) {
     case 200:
       await AsyncStorage.setItem(STG_AUTH_TOKEN, data.token);
+      await AsyncStorage.setItem(STG_UID, data.uid);
 
       router.navigate("/home");
       break;
@@ -104,10 +105,22 @@ export async function signInWithNfc(nfc: string, uid: string) {
 }
 
 export async function signInWithBio() {
-  const result = LocalAuthentication.authenticateAsync({
-    disableDeviceFallback: true,
+  const { success } = await LocalAuthentication.authenticateAsync();
+  if (!success) throw new Error("Fingerprint authentication failed");
+  const bio_code = await AsyncStorage.getItem(STG_AUTH_BIO);
+  if (!bio_code) throw new Error("Fingerprint not set");
+  const uid = await AsyncStorage.getItem(STG_UID);
+  if (!uid) throw new Error("UID not found");
+
+  const deviceID = await DeviceInfo.getUniqueId();
+  const deviceName = await DeviceInfo.getDeviceName();  
+
+  const response = await axios.post("/auth/login_bio", {
+    device_id: deviceID,
+    device_name: deviceName,
+    uid: uid,
+    bio_code: bio_code,
   });
-  console.log("🚀 ~ useEffect ~ result:", result);
-  throw new Error("Not implemented");
-  
+
+  await switchLogin(response.data, response.status);
 }

@@ -19,7 +19,7 @@ const menu = () => {
           expandable: true,
           icon: Icon.FingerprintIcon,
           onPress: () =>
-            router.navigate("/setup/verify_password?nextScreen=/setup/verify_fingerprint"),
+            router.navigate("/setup/verify_password?nextScreen=/setup/verify_mfa"),
         },
         {
           title: "Thiết lập vân tay / FaceID",

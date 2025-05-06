@@ -15,17 +15,18 @@ export default function LoginMainScreen() {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [isLoading, setLoading] = useState(false);
 
-  const handleLogin = async (fn: () => Promise<void>) => {
+  const handleLogin = async (fn: () => Promise<void>, isShowError = true) => {
     try {
       setLoading(true);
       await fn();
     } catch (error) {
-      Toast.show({
-        type: "error",
-        text1: t("toast_failed"),
-        text2: t("toast_failed_description"),
-        autoHide: true,
-      });
+      isShowError &&
+        Toast.show({
+          type: "error",
+          text1: t("toast_failed"),
+          text2: t("toast_failed_description"),
+          autoHide: true,
+        });
     } finally {
       setLoading(false);
     }
@@ -35,16 +36,19 @@ export default function LoginMainScreen() {
     bottomSheetModalRef.current?.present();
   };
 
-  useEffect(() => {
-    handleBioLogin();
-  }, []);
-
   // const navigateToQRLogin = () => navigate('LoginQRMain');
   // const navigateToPassLogin = () => navigate('LoginPass');
   // const navigateToNfcLogin = () => navigate('LoginNfc', {is2fa: false});
 
   const handleGoogleLogin = async () => handleLogin(signInWithGoogle);
-  const handleBioLogin = async () => handleLogin(signInWithBio);
+
+  const handleBioLogin = async (showError: boolean) => {
+    handleLogin(signInWithBio, showError);
+  };
+
+  useEffect(() => {
+    handleBioLogin(false);
+  }, []);
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -84,7 +88,7 @@ export default function LoginMainScreen() {
             // onPress={navigateToQRLogin}
           />
 
-          <TouchableOpacity style={styles.touchBtn} onPress={handleBioLogin}>
+          <TouchableOpacity style={styles.touchBtn} onPress={() => handleBioLogin(true)}>
             <Icon.FingerprintIcon size={Space.lg} color={COLOR.text} stroke={2} />
           </TouchableOpacity>
 

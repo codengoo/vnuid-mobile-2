@@ -1,20 +1,33 @@
-import * as LocalAuthentication from "expo-local-authentication";
-import { router, useLocalSearchParams } from "expo-router";
+import { Icon } from "@/components";
+import { Colors } from "@/constants";
+import { useLocalSearchParams } from "expo-router";
 import { useEffect } from "react";
-import { Text } from "react-native";
+import { Image, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 export default function VerifyingFingerprintScreen() {
   const { password } = useLocalSearchParams<{ password: string }>();
 
   useEffect(() => {
-    LocalAuthentication.authenticateAsync().then((result) => {
-      router.replace("/profile");
-    });
+    // LocalAuthentication.authenticateAsync().then((result) => {
+    //   router.replace("/profile");
+    // });
   }, []);
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={["bottom", "top"]}>
-      <Text>Verify Fingerprint</Text>
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: Colors.yellow100,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Image source={require("@/assets/images/illus_wait_2.png")} style={{ width: "75%" }} />
+        <TouchableOpacity>
+          <Icon.FingerprintIcon />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
