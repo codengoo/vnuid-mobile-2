@@ -34,7 +34,7 @@ export function AtMenuItem({
         <Icon color={COLOR.text} size={space(24)} stroke={2} />
         <Text
           style={{
-            fontFamily: FontFamily.Prompt.normal.regular,
+            fontFamily: FontFamily.Prompt,
             color: COLOR.text,
             fontSize: fontSize(16),
           }}>

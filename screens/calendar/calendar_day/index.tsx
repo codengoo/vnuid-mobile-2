@@ -5,7 +5,7 @@ interface ICalendarDayProps {
   active?: boolean;
   date?: Date;
 }
-export default function CalendarDay({ active }: ICalendarDayProps) {
+export function CalendarDay({ active }: ICalendarDayProps) {
   return (
     <TouchableOpacity
       style={[

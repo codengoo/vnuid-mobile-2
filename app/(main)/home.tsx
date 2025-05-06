@@ -114,17 +114,7 @@ export default function HomeScreen() {
               style={{ objectFit: "scale-down", width: "100%", height: 200 }}
             />
 
-            <View
-              style={{
-                backgroundColor: Colors.yellow100,
-                borderRadius: space(12),
-                padding: space(16),
-                marginTop: space(16),
-                borderWidth: space(2),
-                borderColor: COLOR.borderInput,
-                borderStyle: "dashed",
-              }}
-            >
+            <View style={styles.card_content}>
               <View style={styles.card_header}>
                 <View>
                   <Text style={styles.card_name}>Checkin 7h</Text>
@@ -244,5 +234,15 @@ const styles = StyleSheet.create({
   },
   card_detail_text: {
     ...Styles.text,
+  },
+
+  card_content: {
+    backgroundColor: Colors.yellow100,
+    borderRadius: space(12),
+    padding: space(16),
+    marginTop: space(16),
+    borderWidth: space(2),
+    borderColor: COLOR.borderInput,
+    borderStyle: "dashed",
   },
 });

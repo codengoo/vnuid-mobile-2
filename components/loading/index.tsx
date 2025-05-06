@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   loading_text: {
-    fontFamily: FontFamily.Prompt.normal.medium,
+    fontFamily: FontFamily.Prompt,
   },
 
   loading: {

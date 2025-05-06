@@ -1,7 +1,7 @@
 import { COLOR, FontFamily, space } from "@/constants";
 import { Text, View } from "react-native";
 
-export default function CalendarTimeStone() {
+export function CalendarTimeStone() {
   return (
     <View style={{ height: space(68) }}>
       <Text

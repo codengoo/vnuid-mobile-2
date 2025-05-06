@@ -1,16 +1,16 @@
-import { Colors, space } from '@/constants';
-import { useMemo } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import { Colors, space } from "@/constants";
+import { useMemo } from "react";
+import { Image, StyleSheet, View } from "react-native";
 
 interface AtAvatarProps {
-  shape?: 'square' | 'circle';
+  shape?: "square" | "circle";
   size?: number;
   isPadding?: boolean;
   borderSize?: number;
 }
 
 export function AtAvatar({
-  shape = 'circle',
+  shape = "circle",
   size = 128,
   isPadding = false,
   borderSize = 2,
@@ -21,14 +21,15 @@ export function AtAvatar({
     <View
       style={[
         styles.container,
-        shape === 'circle' ? styles.rounded : styles.square,
+        shape === "circle" ? styles.rounded : styles.square,
         isPadding && styles.padding,
-      ]}>
+      ]}
+    >
       <Image
-        source={require('@/assets/images/avatar_nam.png')}
+        source={require("@/assets/images/avatar_nam.png")}
         style={[
           styles.avatar,
-          shape === 'circle' ? styles.rounded : styles.square,
+          shape === "circle" ? styles.rounded : styles.square,
         ]}
       />
     </View>

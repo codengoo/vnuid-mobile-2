@@ -13,6 +13,7 @@ export * from './fingerprint';
 export * from './google';
 export * from './heart';
 export * from './home';
+export * from './info';
 export * from './key';
 export * from './line';
 export * from './loading';
