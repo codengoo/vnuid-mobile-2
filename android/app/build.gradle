@@ -150,6 +150,13 @@ android {
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
+    implementation 'com.google.ai.edge.litert:litert-api:1.2.0'
+    implementation 'com.google.ai.edge.litert:litert-gpu:1.2.0'
+    implementation 'com.google.ai.edge.litert:litert-support-api:1.2.0'
+    implementation 'com.google.ai.edge.litert:litert:1.2.0'
+    implementation 'com.google.mlkit:face-detection:16.1.7'
+    implementation("com.google.code.gson:gson:2.10.1")
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.9.0'
 
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";

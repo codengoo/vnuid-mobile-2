@@ -3,6 +3,7 @@ import com.facebook.react.common.assets.ReactFontManager
 
 import android.app.Application
 import android.content.res.Configuration
+import com.anonymous.rnai.RnAiPluginPackage
 
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
@@ -25,7 +26,7 @@ class MainApplication : Application(), ReactApplication {
           override fun getPackages(): List<ReactPackage> {
             val packages = PackageList(this).packages
             // Packages that cannot be autolinked yet can be added manually here, for example:
-            // packages.add(new MyReactNativePackage());
+            packages.add(RnAiPluginPackage())
             return packages
           }
 
