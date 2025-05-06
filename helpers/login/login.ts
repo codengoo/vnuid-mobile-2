@@ -1,22 +1,22 @@
 import { IResponseLogin } from "@/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
 import DeviceInfo from "react-native-device-info";
 import { STG_AUTH_2FA_TOKEN, STG_AUTH_TOKEN } from "../constants";
 import { axios } from "../network";
 
 GoogleSignin.configure({
-  webClientId:
-    "842014203560-5h2ec7sni2ag0v1u8v3gm4hn851qo8ur.apps.googleusercontent.com",
+  webClientId: "842014203560-5h2ec7sni2ag0v1u8v3gm4hn851qo8ur.apps.googleusercontent.com",
   offlineAccess: true,
 });
 
-async function switchLogin(data: IResponseLogin, status: number) {  
+async function switchLogin(data: IResponseLogin, status: number) {
   switch (status) {
     case 200:
       await AsyncStorage.setItem(STG_AUTH_TOKEN, data.token);
-      
+
       router.navigate("/home");
       break;
 
@@ -75,18 +75,13 @@ export async function signInWithGoogle() {
   const deviceID = await DeviceInfo.getUniqueId();
   const deviceName = await DeviceInfo.getDeviceName();
 
-  try {
-    const response = await axios.post("/auth/login_google", {
-      id_token: idToken,
-      device_id: deviceID,
-      device_name: deviceName,
-    });
+  const response = await axios.post("/auth/login_google", {
+    id_token: idToken,
+    device_id: deviceID,
+    device_name: deviceName,
+  });
 
-    await switchLogin(response.data, response.status);
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  await switchLogin(response.data, response.status);
 }
 
 export async function signInWithNfc(nfc: string, uid: string) {
@@ -106,4 +101,13 @@ export async function signInWithNfc(nfc: string, uid: string) {
   } catch (error) {
     throw error;
   }
+}
+
+export async function signInWithBio() {
+  const result = LocalAuthentication.authenticateAsync({
+    disableDeviceFallback: true,
+  });
+  console.log("🚀 ~ useEffect ~ result:", result);
+  throw new Error("Not implemented");
+  
 }

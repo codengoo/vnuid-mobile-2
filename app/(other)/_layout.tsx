@@ -19,6 +19,8 @@ export default function OtherLayout() {
         ),
       })}
     >
+      <Stack.Screen name="setup/verify_password" options={{ headerTitle: "Xác thực" }} />
+      <Stack.Screen name="setup/verify_fingerprint" options={{ headerTitle: "Xác thực vân tây" }} />
       <Stack.Screen name="admin_contact" options={{ headerTitle: "Liên hệ" }} />
       <Stack.Screen
         name="first_login"

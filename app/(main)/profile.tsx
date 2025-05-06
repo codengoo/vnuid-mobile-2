@@ -18,19 +18,15 @@ const menu = () => {
           title: "Thiết lập MFA",
           expandable: true,
           icon: Icon.FingerprintIcon,
-          onPress: () => {},
-          // navigation.navigate('VerifyPassword', {
-          //   nextScreen: 'VerifyingFingerprintScreen',
-          // }),
+          onPress: () =>
+            router.navigate("/setup/verify_password?nextScreen=/setup/verify_fingerprint"),
         },
         {
           title: "Thiết lập vân tay / FaceID",
           expandable: true,
           icon: Icon.ScanFaceIcon,
-          onPress: () => {},
-          // navigation.navigate('VerifyPassword', {
-          //   nextScreen: 'VerifyingFingerprintScreen',
-          // }),
+          onPress: () =>
+            router.navigate("/setup/verify_password?nextScreen=/setup/verify_fingerprint"),
         },
         {
           title: "Đăng nhập bằng QR",

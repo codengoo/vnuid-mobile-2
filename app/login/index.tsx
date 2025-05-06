@@ -1,24 +1,11 @@
-import {
-  AtBottomSheet,
-  AtButtonBox,
-  AtButtonLink,
-  ButtonLang,
-  Icon,
-} from "@/components";
+import { AtBottomSheet, AtButtonBox, AtButtonLink, ButtonLang, Icon } from "@/components";
 import { GoogleIcon, QRIcon } from "@/components/ui/icon";
 import { COLOR, Space, space, Styles } from "@/constants";
-import { signInWithGoogle } from "@/helpers/login";
+import { signInWithBio, signInWithGoogle } from "@/helpers/login";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Image,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Toast from "react-native-toast-message";
@@ -28,18 +15,10 @@ export default function LoginMainScreen() {
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [isLoading, setLoading] = useState(false);
 
-  const showModal = () => {
-    bottomSheetModalRef.current?.present();
-  };
-
-  // const navigateToQRLogin = () => navigate('LoginQRMain');
-  // const navigateToPassLogin = () => navigate('LoginPass');
-  // const navigateToNfcLogin = () => navigate('LoginNfc', {is2fa: false});
-
-  const handleGoogleLogin = async () => {
+  const handleLogin = async (fn: () => Promise<void>) => {
     try {
       setLoading(true);
-      await signInWithGoogle();
+      await fn();
     } catch (error) {
       Toast.show({
         type: "error",
@@ -51,6 +30,21 @@ export default function LoginMainScreen() {
       setLoading(false);
     }
   };
+
+  const showModal = () => {
+    bottomSheetModalRef.current?.present();
+  };
+
+  useEffect(() => {
+    handleBioLogin();
+  }, []);
+
+  // const navigateToQRLogin = () => navigate('LoginQRMain');
+  // const navigateToPassLogin = () => navigate('LoginPass');
+  // const navigateToNfcLogin = () => navigate('LoginNfc', {is2fa: false});
+
+  const handleGoogleLogin = async () => handleLogin(signInWithGoogle);
+  const handleBioLogin = async () => handleLogin(signInWithBio);
 
   return (
     <GestureHandlerRootView style={styles.container}>
@@ -66,7 +60,7 @@ export default function LoginMainScreen() {
         />
         <Image
           source={require("@/assets/images/login_main.png")}
-          style={{ height: space(400), marginBottom: -space(16) }}
+          style={{ height: space(350), marginBottom: -space(16) }}
           resizeMode="contain"
         />
       </SafeAreaView>
@@ -90,7 +84,7 @@ export default function LoginMainScreen() {
             // onPress={navigateToQRLogin}
           />
 
-          <TouchableOpacity style={styles.touchBtn}>
+          <TouchableOpacity style={styles.touchBtn} onPress={handleBioLogin}>
             <Icon.FingerprintIcon size={Space.lg} color={COLOR.text} stroke={2} />
           </TouchableOpacity>
 
