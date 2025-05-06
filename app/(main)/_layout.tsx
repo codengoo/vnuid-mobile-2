@@ -20,6 +20,15 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
+          name="checkin"
+          options={{
+            tabBarIcon: ({ color }) => (
+              <Icon.FingerprintIcon color={color} size={32} stroke={1.75} />
+            ),
+          }}
+        />
+
+        <Tabs.Screen
           name="calendar"
           options={{
             tabBarIcon: ({ color }) => (

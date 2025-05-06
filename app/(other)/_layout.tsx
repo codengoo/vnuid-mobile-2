@@ -1,6 +1,6 @@
 import { Icon } from "@/components";
 import { Colors, FontFamily } from "@/constants";
-import { Stack } from "expo-router";
+import { router, Stack } from "expo-router";
 import { TouchableOpacity } from "react-native";
 
 export default function OtherLayout() {
@@ -20,6 +20,19 @@ export default function OtherLayout() {
       })}
     >
       <Stack.Screen name="admin_contact" options={{ headerTitle: "Liên hệ" }} />
+      <Stack.Screen
+        name="first_login"
+        options={{
+          headerTitle: "",
+          headerBackVisible: false,
+          headerLeft: () => null,
+          headerRight: () => (
+            <TouchableOpacity onPress={() => router.replace("/home")}>
+              <Icon.CloseIcon />
+            </TouchableOpacity>
+          ),
+        }}
+      />
     </Stack>
   );
 }

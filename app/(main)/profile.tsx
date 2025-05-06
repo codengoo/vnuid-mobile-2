@@ -59,9 +59,7 @@ const menu = () => {
         {
           title: "Đăng xuất",
           icon: Icon.LoginIcon,
-          onPress: () => {
-            logout();
-          },
+          onPress: () => logout(),
         },
       ],
     },
