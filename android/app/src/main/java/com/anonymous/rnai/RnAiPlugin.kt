@@ -1,15 +1,13 @@
 package com.anonymous.rnai
 
-import android.graphics.Rect
-import com.google.gson.Gson
-import com.mrousavy.camera.frameprocessors.Frame
-import com.mrousavy.camera.frameprocessors.FrameProcessorPlugin
-import com.mrousavy.camera.frameprocessors.VisionCameraProxy
 import com.anonymous.rnai.domain.BitmapUtils
 import com.anonymous.rnai.domain.FaceDetector
 import com.anonymous.rnai.domain.FaceInfo
 import com.anonymous.rnai.domain.FaceNet
-import com.anonymous.rnai.domain.FaceSpoofDetector
+import com.google.gson.Gson
+import com.mrousavy.camera.frameprocessors.Frame
+import com.mrousavy.camera.frameprocessors.FrameProcessorPlugin
+import com.mrousavy.camera.frameprocessors.VisionCameraProxy
 import kotlinx.coroutines.runBlocking
 import kotlin.math.pow
 import kotlin.math.sqrt
@@ -40,27 +38,25 @@ class RnAiPlugin(proxy: VisionCameraProxy, options: Map<String, Any>?) : FramePr
     private val faceNet = FaceNet(proxy.context)
 
     override fun callback(frame: Frame, arguments: Map<String, Any>?): Any? {
-        if (arguments == null || arguments["embedding"] == null) return null
+        if (arguments == null || arguments["embedding"] == null || arguments["position"] == null) return null
         val embeddingRefRaw = arguments["embedding"] as ArrayList<Double>
+        val position = arguments["position"] as String
         val embOrg = embeddingRefRaw.map { it.toFloat() }.toFloatArray()
 
         val mediaImage = frame.image
         val gson = Gson()
 
         mediaImage?.let { image ->
-            // Face detector
-            val face = faceDetector.detectFace(image) ?: return null
+//            val im = BitmapUtils.convertYuvToRgba(image)
+//            val raw = BitmapUtils.bitmapToBase64(im);
+//            return raw
+            val face = faceDetector.detectFace(image, position) ?: return null
             val boundingBox = face.bound
 
             val faceImage = BitmapUtils.cropFace(image, boundingBox)
             if (faceImage != null) {
-//             Embedding
                 val emb = runBlocking { faceNet.getFaceEmbedding(faceImage) }
                 val sim = cosineDistance(emb, embOrg)
-
-//             Face Spoofing
-//                val im = BitmapUtils.convertYuvToRgba(image);
-//                val spoof = runBlocking { faceSpoof.detectSpoof(im, boundingBox) }
 
                 val result = CheckInfo(
                     face = face,
@@ -69,6 +65,7 @@ class RnAiPlugin(proxy: VisionCameraProxy, options: Map<String, Any>?) : FramePr
                 )
 
                 return gson.toJson(result);
+
             } else {
                 return null
             }

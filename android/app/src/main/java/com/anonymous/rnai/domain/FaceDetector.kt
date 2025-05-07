@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.graphics.Rect
 import android.media.Image
 import com.google.android.gms.tasks.Tasks
-import com.google.gson.Gson
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.face.Face
 import com.google.mlkit.vision.face.FaceContour
@@ -137,8 +136,13 @@ class FaceDetector() {
         )
     }
 
-    fun detectFace(image: Image): FaceInfo? {
-        val inputImage = InputImage.fromMediaImage(image, 90)
+    fun detectFace(image: Image, position: String): FaceInfo? {
+        val deg = if (position == "front") {
+            270
+        } else {
+            90
+        }
+        val inputImage = InputImage.fromMediaImage(image, deg)
         val task = faceDetector.process(inputImage)
         val faceList = mutableListOf<FaceInfo>()
 //        val gson = Gson()

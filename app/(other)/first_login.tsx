@@ -6,6 +6,7 @@ import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function FirstLoginScreen() {
+  const navigateToRegister = () => router.navigate("/register_face");
   return (
     <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
       <StatusBar hidden />
@@ -22,22 +23,24 @@ export default function FirstLoginScreen() {
 
         <View style={styles.note}>
           <Text style={styles.note_text}>
-            Be aware that, you only can register one time and will be use this
-            face to verify later. But if your face change so much in the future
-            so that our app cannot recognize you or frequently encounter facial
-            recognition errors, you can contact the admin to and re-register
-            your face.
+            Be aware that, you only can register one time and will be use this face to verify later.
+            But if your face change so much in the future so that our app cannot recognize you or
+            frequently encounter facial recognition errors, you can contact the admin to and
+            re-register your face.
           </Text>
         </View>
       </View>
 
       <View style={{ gap: space(12), alignItems: "center" }}>
-        <AtButtonBox title="Register face" color="yellow" center widthFull />
-
-        <AtButtonLink
-          title="Admin contact"
-          onPress={() => router.navigate("/admin_contact")}
+        <AtButtonBox
+          title="Register face"
+          color="yellow"
+          center
+          widthFull
+          onPress={navigateToRegister}
         />
+
+        <AtButtonLink title="Admin contact" onPress={() => router.navigate("/admin_contact")} />
       </View>
     </SafeAreaView>
   );

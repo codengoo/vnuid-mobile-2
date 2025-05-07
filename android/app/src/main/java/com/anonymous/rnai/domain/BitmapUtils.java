@@ -85,7 +85,8 @@ public class BitmapUtils {
 
         // Rotate bitmap 90 degrees
         Matrix matrix = new Matrix();
-        matrix.postRotate(90);  // Rotate 90 degrees
+//        matrix.postRotate(90);  // Rotate 90 degrees
+        matrix.postRotate(-90);  // Rotate 90 degrees
 
         return Bitmap.createBitmap(rgbaBitmap, 0, 0, rgbaBitmap.getWidth(), rgbaBitmap.getHeight(), matrix, true);
     }

@@ -1,6 +1,6 @@
 import { useIsFocused } from "@react-navigation/native";
 import { useEffect, useRef } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   Camera,
@@ -10,8 +10,7 @@ import {
   useCameraPermission,
 } from "react-native-vision-camera";
 
-interface ICameraProps
-  extends Pick<CameraProps, "codeScanner" | "frameProcessor"> {
+interface ICameraProps extends Pick<CameraProps, "codeScanner" | "frameProcessor"> {
   position: CameraPosition;
   children?: React.ReactNode;
 }
@@ -35,14 +34,10 @@ export function AtCamera({ position, children, ...props }: ICameraProps) {
       </View>
     );
 
-  const capture = async () => {
-    if (!camera.current) return;
-  };
-
   return (
     <View style={{ flex: 1 }}>
       <Camera
-        video={true}
+        // video={true}
         ref={camera}
         device={device}
         style={StyleSheet.absoluteFill}
@@ -52,9 +47,6 @@ export function AtCamera({ position, children, ...props }: ICameraProps) {
       />
       <SafeAreaView style={styles.overlay} edges={["bottom", "top"]}>
         {children}
-        <TouchableOpacity onPress={capture}>
-          <Text>Chup anh</Text>
-        </TouchableOpacity>
       </SafeAreaView>
     </View>
   );

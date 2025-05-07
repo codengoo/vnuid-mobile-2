@@ -11,7 +11,7 @@ export default function OtherLayout() {
         headerStyle: { backgroundColor: Colors.yellow100 },
         headerShown: true,
         headerTitleAlign: "center",
-        headerTitleStyle: { fontFamily: FontFamily.Prompt },
+        headerTitleStyle: { fontFamily: FontFamily.Prompt, fontWeight: 500 },
         headerLeft: () => (
           <TouchableOpacity onPress={navigation.goBack}>
             <Icon.ArrowLeftIcon />
@@ -22,6 +22,7 @@ export default function OtherLayout() {
       <Stack.Screen name="setup/verify_password" options={{ headerTitle: "Xác thực" }} />
       <Stack.Screen name="setup/verify_fingerprint" options={{ headerTitle: "Xác thực vân tây" }} />
       <Stack.Screen name="admin_contact" options={{ headerTitle: "Liên hệ" }} />
+      <Stack.Screen name="register_face" options={{ headerTitle: "Đăng ký" }} />
       <Stack.Screen
         name="first_login"
         options={{
