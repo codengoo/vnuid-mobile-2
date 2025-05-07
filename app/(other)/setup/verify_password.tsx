@@ -1,17 +1,30 @@
 import { AtButtonBox, AtInput, Icon } from "@/components";
 import { LoginContentLayout, LoginDecoratorLayout, LoginLayout } from "@/components/layout";
 import { FontFamily, space } from "@/constants";
+import { checkPass } from "@/helpers/login";
 import { Href, router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Image, Text } from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function VerifyPasswordScreen() {
   const { nextScreen } = useLocalSearchParams<{ nextScreen: string }>();
   const [password, setPassword] = useState("");
 
-  const handleCheckPassword = () => {
+  const handleCheckPassword = async () => {
     const url = `${nextScreen}?password=${password}`;
-    router.navigate(url as Href);
+    const isValid = await checkPass(password);
+    if (isValid) {
+      router.navigate(url as Href);
+    } else {
+      Toast.show({
+        type: "error",
+        text1: "Failed",
+        text2: "Please try again",
+        autoHide: true,
+      });
+      setPassword("");
+    }
   };
 
   return (

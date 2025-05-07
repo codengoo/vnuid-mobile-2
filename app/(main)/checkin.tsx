@@ -1,15 +1,25 @@
 import { useHideTabBar } from "@/context";
+import { getFace } from "@/helpers/checkin";
 import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
+import { useState } from "react";
 import { View } from "react-native";
 
 export default function CheckinScreen() {
   const { toggleTabBar } = useHideTabBar();
+  const [face, setFace] = useState<number[]>([]);
+  const setupFace = async () => {
+    const face = await getFace();
+    if (face.length === 0) {
+      router.navigate("/first_login");
+    } else {
+      setFace(face);
+    }
+  };
 
   useFocusEffect(() => {
+    setupFace();
     toggleTabBar(false);
-
-    router.navigate("/first_login");
   });
 
   return (
