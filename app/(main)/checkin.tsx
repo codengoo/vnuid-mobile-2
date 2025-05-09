@@ -37,33 +37,53 @@ export default function CheckinScreen() {
           padding: space(20),
         }}
       >
-        <View
-          style={{
-            backgroundColor: Colors.white,
-            padding: space(20),
-            borderRadius: space(20),
-            borderWidth: space(2),
-            borderColor: COLOR.borderInput,
-          }}
-        >
-          <Text
+        <View style={{ alignItems: "center", width: "100%" }}>
+          <View
             style={{
-              fontSize: space(20),
-              fontFamily: FontFamily.Prompt,
-              color: COLOR.text,
+              backgroundColor: Colors.white,
+              padding: space(20),
+              borderRadius: space(20),
+              borderWidth: space(2),
+              borderColor: COLOR.borderInput,
+              width: "100%",
             }}
           >
-            Checkin 7:00
-          </Text>
-          <Text
+            <Text
+              style={{
+                fontSize: space(20),
+                fontFamily: FontFamily.Prompt,
+                fontWeight: "600",
+                color: COLOR.text,
+              }}
+            >
+              Checkin 7:00
+            </Text>
+            <Text
+              style={{
+                fontSize: space(14),
+                fontFamily: FontFamily.Prompt,
+                color: COLOR.text,
+              }}
+            >
+              INT2203
+            </Text>
+          </View>
+
+          <View
             style={{
-              fontSize: space(14),
-              fontFamily: FontFamily.Prompt,
-              color: COLOR.text,
+              marginTop: space(20),
+              paddingHorizontal: space(16),
+              paddingVertical: space(8),
+              borderRadius: space(99),
+              backgroundColor: "white",
+              borderWidth: space(1),
+              borderColor: Colors.black500,
             }}
           >
-            INT2203
-          </Text>
+            <Text style={{ fontFamily: FontFamily.Prompt, fontSize: space(14), fontWeight: "500" }}>
+              Hướng mặt sang bên phải
+            </Text>
+          </View>
         </View>
 
         <View
@@ -71,9 +91,58 @@ export default function CheckinScreen() {
             backgroundColor: Colors.white,
             padding: space(20),
             borderRadius: space(20),
+            gap: space(4),
           }}
         >
-          <Text>Checking location</Text>
+          <Text style={{ fontWeight: "500", fontFamily: FontFamily.Prompt, fontSize: space(16) }}>
+            Kiểm tra vị trí thành công
+          </Text>
+          <View style={{ flexDirection: "row", gap: space(8) }}>
+            <Text style={{ fontWeight: "500", fontFamily: FontFamily.Prompt, fontSize: space(16) }}>
+              [00:1A:2B:3C:4D:5E]
+            </Text>
+            <View
+              style={{
+                backgroundColor: Colors.green300,
+                padding: space(8),
+                borderRadius: space(99),
+              }}
+            >
+              <Text
+                style={{
+                  color: Colors.white,
+                  fontFamily: FontFamily.Prompt,
+                  fontWeight: "600",
+                  fontSize: space(8),
+                }}
+              >
+                OK
+              </Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: "row", gap: space(8) }}>
+            <Text style={{ fontWeight: "500", fontFamily: FontFamily.Prompt, fontSize: space(16) }}>
+              [00:1A:2B:3C:4D:5F]
+            </Text>
+            <View
+              style={{
+                backgroundColor: Colors.green300,
+                padding: space(8),
+                borderRadius: space(99),
+              }}
+            >
+              <Text
+                style={{
+                  color: Colors.white,
+                  fontFamily: FontFamily.Prompt,
+                  fontWeight: "600",
+                  fontSize: space(8),
+                }}
+              >
+                OK
+              </Text>
+            </View>
+          </View>
         </View>
       </View>
     </CameraScanFace>

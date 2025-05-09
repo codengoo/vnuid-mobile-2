@@ -1,7 +1,10 @@
 import { COLOR, FontFamily, space } from "@/constants";
 import { Text, View } from "react-native";
 
-export function CalendarTimeStone() {
+interface ICalendarTimeStoneProps{
+  text1: string
+}
+export function CalendarTimeStone({text1}: ICalendarTimeStoneProps) {
   return (
     <View style={{ height: space(68) }}>
       <Text
@@ -11,7 +14,7 @@ export function CalendarTimeStone() {
           fontSize: space(12),
         }}
       >
-        7:00 AM
+        {text1}
       </Text>
     </View>
   );

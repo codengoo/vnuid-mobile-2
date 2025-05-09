@@ -31,6 +31,7 @@ export default function CalendarScreen() {
           style={{
             fontSize: fontSize(40),
             fontFamily: FontFamily.Prompt,
+            fontWeight: "600",
             lineHeight: space(40),
             color: COLOR.text,
             textTransform: "uppercase",
@@ -49,14 +50,11 @@ export default function CalendarScreen() {
             marginTop: space(12),
           }}
         >
-          Consequat eleifend lectus morbi lectus cubilia enim pretium eros. Nam
-          lobortis amet amet lectus luctus sociosqu suscipit posuere.{" "}
+          Bạn sẽ có thể thấy thời gian biểu diễn ra các phiên điểm danh ở trong trang này.
         </Text>
       </View>
 
-      <View
-        style={{ padding: space(24), flexDirection: "column", gap: space(12) }}
-      >
+      <View style={{ padding: space(24), flexDirection: "column", gap: space(12) }}>
         <View style={{ flexDirection: "row" }}>
           <View
             style={{
@@ -76,7 +74,7 @@ export default function CalendarScreen() {
                 fontSize: fontSize(14),
               }}
             >
-              Dec 07
+              09 Tháng 5
             </Text>
             <Icon.ChevronRightIcon size={20} color={Colors.white} stroke={2} />
           </View>
@@ -89,13 +87,13 @@ export default function CalendarScreen() {
             justifyContent: "space-between",
           }}
         >
-          <CalendarDay active />
-          <CalendarDay />
-          <CalendarDay />
-          <CalendarDay />
-          <CalendarDay />
-          <CalendarDay />
-          <CalendarDay />
+          <CalendarDay active text1="Th6" text2="09" />
+          <CalendarDay text1="T7" text2="10" />
+          <CalendarDay text1="Cn" text2="11" />
+          <CalendarDay text1="T2" text2="12" />
+          <CalendarDay text1="T3" text2="13" />
+          <CalendarDay text1="T4" text2="14" />
+          <CalendarDay text1="T5" text2="15" />
         </View>
       </View>
 
@@ -118,26 +116,20 @@ export default function CalendarScreen() {
               height: "100%",
             }}
           >
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
-            <CalendarTimeStone />
+            <CalendarTimeStone text1="7:00"/>
+            <CalendarTimeStone text1="9:00"/>
+            <CalendarTimeStone text1="11:00"/>
+            <CalendarTimeStone text1="13:00"/>
+            <CalendarTimeStone text1="15:00"/>
+            <CalendarTimeStone text1="17:00"/>
+            <CalendarTimeStone text1="19:00"/>
+            <CalendarTimeStone text1="21:00"/>
           </View>
 
           <View style={{ flex: 1 }}>
-            <CalendarEvent />
+            <CalendarEvent text1="Nhập môn An toàn thông tin" text2="INT2209" text3="201 Giảng đường 2"/>
             <CalendarEventPad height={36} />
-            <CalendarEvent />
+            <CalendarEvent text1="Lập trình nhúng" text2="INT2210" text3="202 Giảng đường 1"/>
             <CalendarEventPad height={200} />
           </View>
         </Animated.ScrollView>

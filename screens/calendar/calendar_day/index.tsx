@@ -4,8 +4,10 @@ import { Text, TouchableOpacity } from "react-native";
 interface ICalendarDayProps {
   active?: boolean;
   date?: Date;
+  text1: string;
+  text2: string;
 }
-export function CalendarDay({ active }: ICalendarDayProps) {
+export function CalendarDay({ active, text1, text2 }: ICalendarDayProps) {
   return (
     <TouchableOpacity
       style={[
@@ -30,17 +32,17 @@ export function CalendarDay({ active }: ICalendarDayProps) {
           active && { color: Colors.green300 },
         ]}
       >
-        Sun
+        {text1}
       </Text>
       <Text
         style={[
-          { fontFamily: FontFamily.Prompt },
+          { fontFamily: FontFamily.Prompt, fontWeight: "500" },
           active && {
             color: Colors.green300,
           },
         ]}
       >
-        20
+        {text2}
       </Text>
     </TouchableOpacity>
   );
