@@ -1,6 +1,6 @@
 import { AtAvatar, AtInput, Icon } from "@/components";
 import { COLOR, Colors, FontFamily, fontSize, space, Styles } from "@/constants";
-import { useHideTabBar } from "@/context";
+import { useHideTabBar, useUser } from "@/context";
 import { greeting } from "@/utils";
 import { useFocusEffect } from "@react-navigation/native";
 import { useState } from "react";
@@ -34,6 +34,7 @@ export default function HomeScreen() {
 
   const { toggleTabBar } = useHideTabBar();
   const [text, setText] = useState("");
+  const { user } = useUser();
 
   useFocusEffect(() => {
     toggleTabBar(true);
@@ -43,7 +44,7 @@ export default function HomeScreen() {
     <SafeAreaView style={styles.container} edges={["top"]}>
       <View style={styles.header}>
         <View>
-          <Text style={Styles.appText}>Xin chào, Tuấn Nghĩa</Text>
+          <Text style={Styles.appText}>Xin chào, {user?.name || ""}</Text>
           <Text style={Styles.subText}>{greeting()}</Text>
         </View>
         <AtAvatar shape="circle" size={48} />

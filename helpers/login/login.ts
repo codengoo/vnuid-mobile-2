@@ -12,14 +12,14 @@ GoogleSignin.configure({
   offlineAccess: true,
 });
 
-async function switchLogin(data: IResponseLogin, status: number) {
+async function switchLogin(data: IResponseLogin, status: number): Promise<string | null> {
   switch (status) {
     case 200:
       await AsyncStorage.setItem(STG_AUTH_TOKEN, data.token);
       await AsyncStorage.setItem(STG_UID, data.uid);
 
       router.navigate("/home");
-      break;
+      return data.token;
 
     case 202:
       await AsyncStorage.setItem(STG_AUTH_2FA_TOKEN, data.token);
@@ -27,7 +27,7 @@ async function switchLogin(data: IResponseLogin, status: number) {
       //   token: data.token,
       //   allowMethods: data.allow,
       // });
-      break;
+      return null;
     default:
       throw new Error("Could not login");
   }
@@ -62,8 +62,8 @@ export async function signInWithPass(username: string, password: string) {
       device_name: deviceName,
     });
 
-    console.log(response.data);
-    await switchLogin(response.data, response.status);
+    const token = await switchLogin(response.data, response.status);
+    return token;
   } catch (error) {
     throw error;
   }
@@ -82,7 +82,8 @@ export async function signInWithGoogle() {
     device_name: deviceName,
   });
 
-  await switchLogin(response.data, response.status);
+  const token = await switchLogin(response.data, response.status);
+  return token;
 }
 
 export async function signInWithNfc(nfc: string, uid: string) {
@@ -97,8 +98,8 @@ export async function signInWithNfc(nfc: string, uid: string) {
       device_name: deviceName,
     });
 
-    console.log(response.data);
-    await switchLogin(response.data, response.status);
+    const token = await switchLogin(response.data, response.status);
+    return token;
   } catch (error) {
     throw error;
   }
@@ -113,7 +114,7 @@ export async function signInWithBio() {
   if (!uid) throw new Error("UID not found");
 
   const deviceID = await DeviceInfo.getUniqueId();
-  const deviceName = await DeviceInfo.getDeviceName();  
+  const deviceName = await DeviceInfo.getDeviceName();
 
   const response = await axios.post("/auth/login_bio", {
     device_id: deviceID,
@@ -122,5 +123,6 @@ export async function signInWithBio() {
     bio_code: bio_code,
   });
 
-  await switchLogin(response.data, response.status);
+  const token = await switchLogin(response.data, response.status);
+  return token;
 }

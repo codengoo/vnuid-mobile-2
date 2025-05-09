@@ -1,4 +1,4 @@
-import React, {createContext, useContext} from 'react';
+import React, { createContext, useContext } from 'react';
 import {
   SharedValue,
   useAnimatedScrollHandler,
@@ -10,13 +10,13 @@ const TabBarVisibilityContext = createContext<{
   translateY: SharedValue<number>;
 } | null>(null);
 
-interface ITabBarVisibilityContext {
+interface ITabBarVisibilityProviderProps {
   children: React.ReactNode;
 }
 
 export const TabBarVisibilityProvider = ({
   children,
-}: ITabBarVisibilityContext) => {
+}: ITabBarVisibilityProviderProps) => {
   const translateY = useSharedValue(0);
   return (
     <TabBarVisibilityContext.Provider value={{translateY}}>

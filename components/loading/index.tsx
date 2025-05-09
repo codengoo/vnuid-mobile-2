@@ -1,4 +1,4 @@
-import { Colors, FontFamily, space } from '@/constants';
+import { Colors, space, Styles } from '@/constants';
 import { useEffect } from 'react';
 import { Image, StatusBar, StyleSheet, Text, View } from 'react-native';
 import Animated, {
@@ -41,7 +41,7 @@ export function AtLoading() {
         <Animated.View style={[animatedStyle]}>
           <Icon.LoadingIcon stroke={2} size={20} />
         </Animated.View>
-        <Text style={styles.loading_text}>Loading...</Text>
+        <Text style={Styles.text}>Loading...</Text>
       </View>
     </View>
   );
@@ -62,10 +62,6 @@ const styles = StyleSheet.create({
     width: '100%',
     objectFit: 'scale-down',
     maxHeight: '40%',
-  },
-
-  loading_text: {
-    fontFamily: FontFamily.Prompt,
   },
 
   loading: {

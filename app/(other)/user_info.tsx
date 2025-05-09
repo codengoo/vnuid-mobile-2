@@ -1,8 +1,7 @@
-import userInfo from "@/assets/data/user.json";
 import { AtAvatar, AtLoading } from "@/components";
 import { Colors, space, Styles } from "@/constants";
+import { useUser } from "@/context";
 import { ContextItem } from "@/screens/admin_contact";
-import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 interface UserInfo {
@@ -15,16 +14,9 @@ interface UserInfo {
 }
 
 export default function AdminContact() {
-  const [usr, setUsr] = useState<UserInfo | null>(null);
+  const { user } = useUser();
 
-  useEffect(() => {
-    // GetCache: TODO
-    setUsr(userInfo as UserInfo);
-  }, []);
-
-  if (!usr) {
-    return <AtLoading />;
-  }
+  if (!user) return <AtLoading />;
 
   return (
     <SafeAreaView style={styles.container} edges={["bottom"]}>
@@ -32,16 +24,16 @@ export default function AdminContact() {
         <AtAvatar shape="circle" size={96} />
 
         <View style={{ alignItems: "center", gap: space(4) }}>
-          <Text style={styles.text1}>{usr.name}</Text>
-          <Text style={styles.text2}>{usr.department}</Text>
-          <Text style={styles.text3}>{usr.official_class}</Text>
+          <Text style={styles.text1}>{user.name}</Text>
+          <Text style={styles.text2}>{user.department}</Text>
+          <Text style={styles.text3}>{user.official_class}</Text>
         </View>
       </View>
 
       <View style={styles.detailContainer}>
-        <ContextItem type={"email"} value={usr.email} key={"contact_" + usr.email} />
-        <ContextItem type={"phone"} value={usr.phone} key={"contact_" + usr.phone} />
-        <ContextItem type={"address"} value={usr.address} key={"contact_" + usr.address} />
+        <ContextItem type={"email"} value={user.email} key={"contact_" + user.email} />
+        <ContextItem type={"phone"} value={user.phone} key={"contact_" + user.phone} />
+        <ContextItem type={"address"} value={user.address} key={"contact_" + user.address} />
       </View>
     </SafeAreaView>
   );

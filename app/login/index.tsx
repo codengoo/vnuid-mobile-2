@@ -1,7 +1,8 @@
 import { AtBottomSheet, AtButtonBox, AtButtonLink, ButtonLang, Icon } from "@/components";
 import { GoogleIcon, QRIcon } from "@/components/ui/icon";
 import { COLOR, Space, space, Styles } from "@/constants";
-import { signInWithBio, signInWithGoogle } from "@/helpers/login";
+import { useUser } from "@/context";
+import { fetchUserData, signInWithBio, signInWithGoogle } from "@/helpers/login";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -14,11 +15,16 @@ export default function LoginMainScreen() {
   const { t } = useTranslation("login");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [isLoading, setLoading] = useState(false);
+  const { user, setUser } = useUser();
 
-  const handleLogin = async (fn: () => Promise<void>, isShowError = true) => {
+  const handleLogin = async (fn: () => Promise<string | null>, isShowError = true) => {
     try {
       setLoading(true);
-      await fn();
+      const token = await fn();
+      if (token) {
+        const userData = await fetchUserData(token);
+        setUser(userData);
+      }
     } catch (error) {
       isShowError &&
         Toast.show({

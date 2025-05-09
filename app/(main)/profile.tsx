@@ -1,9 +1,9 @@
-import { AtAvatar, Icon } from "@/components";
+import { AtAvatar, AtLoading, Icon } from "@/components";
 import { AtChip } from "@/components/ui/chip";
 import { AtMenu } from "@/components/ui/menu";
 import { IMenuSectionProps } from "@/components/ui/menu/components/menu_section";
 import { Colors, fontSize, space, Styles } from "@/constants";
-import { useHideTabBar } from "@/context";
+import { useHideTabBar, useUser } from "@/context";
 import { logout } from "@/helpers/login";
 import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
@@ -64,11 +64,14 @@ const menu = () => {
 
 export default function ProfileScreen() {
   const { toggleTabBar } = useHideTabBar();
+  const { user } = useUser();
   const menuSetting = useMemo(() => menu(), []);
   const navigateToUserProfile = () => router.navigate("/user_info");
   useFocusEffect(() => {
     toggleTabBar(true);
   });
+
+  if (!user) return <AtLoading />;
 
   return (
     <SafeAreaView style={{ backgroundColor: Colors.yellow100, flex: 1 }}>
@@ -76,8 +79,8 @@ export default function ProfileScreen() {
       <View style={styles.header}>
         <AtAvatar size={96} shape="circle" isPadding />
         <View style={{ flexDirection: "column", alignItems: "center" }}>
-          <Text style={styles.nameText}>Đỗ Tuấn Nghĩa</Text>
-          <Text style={Styles.subText}>21020365@vnu.edu.vn</Text>
+          <Text style={styles.nameText}>{user.name}</Text>
+          <Text style={Styles.subText}>{user.email}</Text>
           <AtChip label="Your profile" onPress={navigateToUserProfile} />
         </View>
       </View>

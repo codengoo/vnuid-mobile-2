@@ -1,1 +1,2 @@
-export * from "./TabBarVisibilityContext"
+export * from "./TabBarVisibilityContext";
+export * from "./UserContext";
