@@ -1,6 +1,7 @@
 import { Colors, space } from "@/constants";
+import { router } from "expo-router";
 import { useMemo } from "react";
-import { Image, StyleSheet, View } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 
 interface AtAvatarProps {
   shape?: "square" | "circle";
@@ -16,9 +17,11 @@ export function AtAvatar({
   borderSize = 2,
 }: AtAvatarProps) {
   const styles = useMemo(() => style(size, borderSize), [size]);
-
+  const gotoProfile = () => router.navigate("/user_info");
+  
   return (
-    <View
+    <TouchableOpacity
+      onPress={gotoProfile}
       style={[
         styles.container,
         shape === "circle" ? styles.rounded : styles.square,
@@ -27,12 +30,9 @@ export function AtAvatar({
     >
       <Image
         source={require("@/assets/images/avatar_nam.png")}
-        style={[
-          styles.avatar,
-          shape === "circle" ? styles.rounded : styles.square,
-        ]}
+        style={[styles.avatar, shape === "circle" ? styles.rounded : styles.square]}
       />
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -41,6 +41,7 @@ const style = (size: number, borderSize: number) =>
     container: {
       borderColor: Colors.black700,
       borderWidth: space(borderSize),
+      backgroundColor: Colors.yellow300,
     },
 
     avatar: {

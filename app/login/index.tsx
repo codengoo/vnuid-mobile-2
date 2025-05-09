@@ -93,7 +93,7 @@ export default function LoginMainScreen() {
           </TouchableOpacity>
 
           <AtButtonLink title={t("try_other_way")} onPress={showModal} />
-          <Text style={Styles.helperText}>{t("login_helper")}</Text>
+          <Text style={styles.helper}>{t("login_helper")}</Text>
         </View>
       </SafeAreaView>
 
@@ -169,5 +169,9 @@ export const styles = StyleSheet.create({
     ...Styles.content,
     gap: space(20),
     padding: Space.sd,
+  },
+  helper: {
+    ...Styles.helperText,
+    textAlign: "center",
   },
 });

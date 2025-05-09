@@ -91,5 +91,6 @@ const styles = StyleSheet.create({
 
   descriptionText: {
     ...Styles.subText,
+    textAlign: "center"
   },
 });

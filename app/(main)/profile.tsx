@@ -1,13 +1,14 @@
-import { Icon } from "@/components";
+import { AtAvatar, Icon } from "@/components";
+import { AtChip } from "@/components/ui/chip";
 import { AtMenu } from "@/components/ui/menu";
 import { IMenuSectionProps } from "@/components/ui/menu/components/menu_section";
-import { COLOR, Colors, FontFamily, fontSize, space } from "@/constants";
+import { Colors, fontSize, space, Styles } from "@/constants";
 import { useHideTabBar } from "@/context";
 import { logout } from "@/helpers/login";
 import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useMemo } from "react";
-import { Image, Text, View } from "react-native";
+import { StatusBar, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const menu = () => {
@@ -18,8 +19,7 @@ const menu = () => {
           title: "Thiết lập MFA",
           expandable: true,
           icon: Icon.FingerprintIcon,
-          onPress: () =>
-            router.navigate("/setup/verify_password?nextScreen=/setup/verify_mfa"),
+          onPress: () => router.navigate("/setup/verify_password?nextScreen=/setup/verify_mfa"),
         },
         {
           title: "Thiết lập vân tay / FaceID",
@@ -65,74 +65,20 @@ const menu = () => {
 export default function ProfileScreen() {
   const { toggleTabBar } = useHideTabBar();
   const menuSetting = useMemo(() => menu(), []);
-
+  const navigateToUserProfile = () => router.navigate("/user_info");
   useFocusEffect(() => {
     toggleTabBar(true);
   });
 
   return (
     <SafeAreaView style={{ backgroundColor: Colors.yellow100, flex: 1 }}>
-      <View
-        style={{
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          paddingTop: space(32),
-          gap: space(16),
-        }}
-      >
-        <View
-          style={{
-            padding: space(2),
-            borderColor: Colors.green700,
-            borderWidth: space(2),
-            borderRadius: space(999),
-          }}
-        >
-          <Image
-            source={require("@/assets/images/avatar_nam.png")}
-            style={{ borderRadius: space(999), width: 96, height: 96 }}
-          />
-        </View>
-
+      <StatusBar barStyle={"dark-content"} />
+      <View style={styles.header}>
+        <AtAvatar size={96} shape="circle" isPadding />
         <View style={{ flexDirection: "column", alignItems: "center" }}>
-          <Text
-            style={{
-              fontSize: fontSize(28),
-              fontFamily: FontFamily.Prompt,
-              color: COLOR.text,
-            }}
-          >
-            Đỗ Tuấn Nghĩa
-          </Text>
-          <Text
-            style={{
-              fontSize: fontSize(16),
-              fontFamily: FontFamily.Prompt,
-              color: COLOR.textSub,
-            }}
-          >
-            21020365@vnu.edu.vn
-          </Text>
-          <View
-            style={{
-              padding: space(4),
-              paddingHorizontal: space(12),
-              backgroundColor: Colors.green300,
-              borderRadius: space(99),
-              marginTop: space(8),
-            }}
-          >
-            <Text
-              style={{
-                fontSize: fontSize(14),
-                fontFamily: FontFamily.Prompt,
-                color: COLOR.text,
-              }}
-            >
-              Your profile
-            </Text>
-          </View>
+          <Text style={styles.nameText}>Đỗ Tuấn Nghĩa</Text>
+          <Text style={Styles.subText}>21020365@vnu.edu.vn</Text>
+          <AtChip label="Your profile" onPress={navigateToUserProfile} />
         </View>
       </View>
 
@@ -140,3 +86,18 @@ export default function ProfileScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  nameText: {
+    ...Styles.text,
+    fontSize: fontSize(28),
+  },
+
+  header: {
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: space(32),
+    gap: space(16),
+  },
+});

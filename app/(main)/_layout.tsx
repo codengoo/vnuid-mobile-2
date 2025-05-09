@@ -20,8 +20,8 @@ export default function TabLayout() {
         />
 
         <Tabs.Screen
-          // name="checkin"
-          name="checkin_2"
+          name="checkin"
+          // name="checkin_2"
           options={{
             tabBarIcon: ({ color }) => (
               <Icon.FingerprintIcon color={color} size={32} stroke={1.75} />

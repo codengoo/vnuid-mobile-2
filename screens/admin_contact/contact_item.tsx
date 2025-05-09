@@ -1,5 +1,5 @@
 import { Icon } from "@/components";
-import { Colors, FontFamily, space } from "@/constants";
+import { space, Styles } from "@/constants";
 import { handleCall, handleMap, handleSendMail } from "@/helpers/link";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
@@ -26,11 +26,7 @@ export function ContextItem({ type, value }: ItemProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>
-        {type === "phone"
-          ? "Số điện thoại"
-          : type === "email"
-          ? "Email"
-          : "Địa chỉ"}
+        {type === "phone" ? "Số điện thoại" : type === "email" ? "Email" : "Địa chỉ"}
       </Text>
       <View style={styles.value_wrapper}>
         <Text style={styles.value}>{value}</Text>
@@ -54,13 +50,13 @@ const styles = StyleSheet.create({
   },
 
   title: {
-    fontFamily: FontFamily.Prompt,
+    ...Styles.subText,
     fontSize: space(12),
-    color: Colors.black500,
   },
 
   value: {
-    fontFamily: FontFamily.Prompt,
+    ...Styles.text,
+    fontWeight: "500",
     flexShrink: 1,
   },
 

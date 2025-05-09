@@ -1,23 +1,10 @@
-import { AtInput, Icon } from "@/components";
-import {
-  COLOR,
-  Colors,
-  FontFamily,
-  fontSize,
-  space,
-  Styles,
-} from "@/constants";
+import { AtAvatar, AtInput, Icon } from "@/components";
+import { COLOR, Colors, FontFamily, fontSize, space, Styles } from "@/constants";
 import { useHideTabBar } from "@/context";
+import { greeting } from "@/utils";
 import { useFocusEffect } from "@react-navigation/native";
 import { useState } from "react";
-import {
-  Image,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 // import WifiManager from "react-native-wifi-reborn";
 
@@ -57,12 +44,9 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <View>
           <Text style={Styles.appText}>Xin chào, Tuấn Nghĩa</Text>
-          <Text style={styles.text_sub_heading}>Buổi trưa vui vẻ nhé</Text>
+          <Text style={Styles.subText}>{greeting()}</Text>
         </View>
-        <Image
-          source={require("@/assets/images/avatar_nam.png")}
-          style={styles.avatar}
-        />
+        <AtAvatar shape="circle" size={48} />
       </View>
 
       <View>
@@ -95,9 +79,7 @@ export default function HomeScreen() {
             <Text style={Styles.subText}>Hôm nay</Text>
           </View>
           <View style={[styles.chip_button, styles.chip_button_active]}>
-            <Text style={[Styles.subText, styles.text_chip_active]}>
-              Tuần này
-            </Text>
+            <Text style={[Styles.subText, styles.text_chip_active]}>Tuần này</Text>
           </View>
           <View style={styles.chip_button}>
             <Text style={Styles.subText}>Tại đây</Text>
@@ -118,9 +100,7 @@ export default function HomeScreen() {
               <View style={styles.card_header}>
                 <View>
                   <Text style={styles.card_name}>Checkin 7h</Text>
-                  <Text style={styles.card_sub_name}>
-                    INT2203 - Lập trình web
-                  </Text>
+                  <Text style={styles.card_sub_name}>INT2203 - Lập trình web</Text>
                 </View>
                 <TouchableOpacity>
                   <Icon.HeartIcon stroke={2} size={28} color={COLOR.text} />
@@ -155,19 +135,11 @@ const styles = StyleSheet.create({
     padding: space(20),
     gap: space(20),
   },
-  text_sub_heading: {
-    ...Styles.subText,
-    textAlign: "left",
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: space(999),
-  },
   header: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "flex-start",
   },
   section: {
     gap: space(16),

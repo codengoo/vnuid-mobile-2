@@ -1,14 +1,16 @@
 import adminInfo from "@/assets/data/admin.json";
 import { AtAvatar, AtButtonBox, AtLoading } from "@/components";
 import { CallIcon, MailIcon, MapIcon } from "@/components/ui/icon";
-import { Colors, FontFamily, fontSize, space } from "@/constants";
+import { space, Styles } from "@/constants";
 import { handleCall, handleMap, handleSendMail } from "@/helpers/link";
 import { ContextItem } from "@/screens/admin_contact";
 import { useEffect, useState } from "react";
-import { StatusBar, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 interface AdminInfo {
+  department: string;
+  university: string;
   main: {
     phone: string;
     email: string;
@@ -33,49 +35,23 @@ export default function AdminContact() {
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={["top", "bottom"]}>
-      <StatusBar hidden />
-
+    <SafeAreaView style={styles.container} edges={["bottom"]}>
       <View style={styles.header}>
         <AtAvatar shape="square" size={96} />
 
         <View style={{ alignItems: "center" }}>
-          <Text style={styles.text1}>PHONG CONG TAC SINH VIEN</Text>
-          <Text style={styles.text2}>Dai hoc Quoc gia Ha Noi</Text>
+          <Text style={styles.text1}>{adm.department}</Text>
+          <Text style={styles.text2}>{adm.university}</Text>
         </View>
 
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            gap: space(12),
-            marginTop: space(20),
-          }}
-        >
-          <AtButtonBox
-            icon={MailIcon}
-            onPress={() => handleSendMail(adm.main.email)}
-          />
-          <AtButtonBox
-            icon={CallIcon}
-            onPress={() => handleCall(adm.main.phone)}
-          />
-          <AtButtonBox
-            icon={MapIcon}
-            onPress={() => handleMap(adm.main.address)}
-          />
+        <View style={styles.quickGroupButtons}>
+          <AtButtonBox icon={MailIcon} onPress={() => handleSendMail(adm.main.email)} />
+          <AtButtonBox icon={CallIcon} onPress={() => handleCall(adm.main.phone)} />
+          <AtButtonBox icon={MapIcon} onPress={() => handleMap(adm.main.address)} />
         </View>
       </View>
 
-      <View
-        style={{
-          backgroundColor: Colors.yellow300,
-          padding: space(12),
-          borderRadius: space(20),
-          borderWidth: space(2),
-          borderColor: Colors.black500,
-        }}
-      >
+      <View style={styles.detailContainer}>
         {adm.details.map(({ type, value }, index) => (
           <ContextItem type={type} value={value} key={"contact_" + index} />
         ))}
@@ -86,37 +62,32 @@ export default function AdminContact() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: space(20),
-    justifyContent: "flex-start",
-    gap: space(36),
-    backgroundColor: Colors.yellow100,
-  },
-
-  avatar: {
-    width: 96,
-    height: 96,
-    borderRadius: space(24),
+    ...Styles.container,
   },
 
   header: {
-    backgroundColor: Colors.yellow300,
-    borderRadius: space(20),
-    padding: space(20),
-    borderColor: Colors.black700,
-    borderWidth: space(2),
-    flexDirection: "column",
-    alignItems: "center",
-    gap: space(12),
+    ...Styles.section,
   },
 
   text1: {
-    fontFamily: FontFamily.Prompt,
-    fontSize: fontSize(18),
+    ...Styles.text,
+    textTransform: "uppercase",
+    fontWeight: "600",
   },
 
   text2: {
-    fontFamily: FontFamily.Prompt,
-    fontSize: fontSize(16),
+    ...Styles.text,
+  },
+
+  quickGroupButtons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: space(12),
+    marginTop: space(20),
+  },
+
+  detailContainer: {
+    padding: space(12),
+    borderRadius: space(20),
   },
 });

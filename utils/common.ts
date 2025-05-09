@@ -1,2 +1,17 @@
 export const random = (start: number, end: number) =>
   Math.floor(Math.random() * (end - start) + start);
+
+export const greeting = () => {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour >= 5 && hour < 11) {
+    return "Buổi sáng vui vẻ";
+  } else if (hour >= 11 && hour < 13) {
+    return "Buổi trưa vui vẻ";
+  } else if (hour >= 13 && hour < 18) {
+    return "Buổi chiều vui vẻ";
+  } else {
+    return "Buổi tối vui vẻ";
+  }
+};

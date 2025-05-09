@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLOR } from "./colors";
+import { COLOR, Colors } from "./colors";
 import { FontFamily, fontSize, FontSize } from "./font";
 import { Space, space } from "./space";
 
@@ -8,7 +8,6 @@ const TextStyle = StyleSheet.create({
     fontSize: FontSize.md,
     fontFamily: FontFamily.Prompt,
     color: COLOR.text,
-    textAlign: "center",
   },
 });
 
@@ -48,6 +47,7 @@ export const Styles = StyleSheet.create({
   appText: {
     ...TextStyle.text,
     fontSize: fontSize(36),
+    textAlign: "center",
     fontWeight: "600",
     fontFamily: FontFamily.Lobster,
   },
@@ -58,5 +58,24 @@ export const Styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-between",
     gap: Space.lg,
+  },
+
+  section: {
+    backgroundColor: Colors.yellow400,
+    borderRadius: space(20),
+    padding: space(20),
+    borderColor: Colors.black700,
+    borderWidth: space(2),
+    flexDirection: "column",
+    alignItems: "center",
+    gap: space(12),
+  },
+
+  container: {
+    flex: 1,
+    padding: space(20),
+    justifyContent: "flex-start",
+    gap: space(36),
+    backgroundColor: Colors.yellow100,
   },
 });
