@@ -6,6 +6,7 @@ export * from './call';
 export * from './card';
 export * from './check';
 export * from './chevron_right';
+export * from "./circle_check";
 export * from './close';
 export * from './eye_close';
 export * from './eye_open';
@@ -29,3 +30,4 @@ export * from './scan_face';
 export * from './search';
 export * from './type';
 export * from './user';
+

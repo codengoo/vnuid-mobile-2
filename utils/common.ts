@@ -1,3 +1,5 @@
+import { differenceInCalendarDays, isBefore, startOfDay } from "date-fns";
+
 export const random = (start: number, end: number) =>
   Math.floor(Math.random() * (end - start) + start);
 
@@ -14,4 +16,14 @@ export const greeting = () => {
   } else {
     return "Buổi tối vui vẻ";
   }
+};
+
+export const isInInterval = (eventStart: Date, checkDate: Date) => {
+  const start = startOfDay(eventStart);
+  const check = startOfDay(checkDate);
+
+  if (isBefore(check, start)) return false;
+
+  const days = differenceInCalendarDays(check, start);
+  return days % 7 === 0;
 };

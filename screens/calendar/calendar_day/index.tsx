@@ -7,8 +7,9 @@ interface ICalendarDayProps {
   text1: string;
   text2: string;
   width?: number;
+  onPress?: () => void;
 }
-export function CalendarDay({ active, text1, text2, width }: ICalendarDayProps) {
+export function CalendarDay({ active, text1, text2, width, onPress }: ICalendarDayProps) {
   return (
     <TouchableOpacity
       style={[
@@ -16,6 +17,7 @@ export function CalendarDay({ active, text1, text2, width }: ICalendarDayProps) 
         width !== undefined && { width },
         active && { borderColor: Colors.green300 },
       ]}
+      onPress={onPress}
     >
       <Text style={[Styles.subText, active && { color: Colors.green300 }]}>{text1}</Text>
       <Text style={[styles.text, active && { color: Colors.green300 }]}>{text2}</Text>
@@ -30,13 +32,8 @@ const styles = StyleSheet.create({
     padding: space(4),
     paddingHorizontal: space(8),
     borderBottomWidth: space(2),
-    borderColor: "transparent"
+    borderColor: "transparent",
   },
-
-  // text1: {
-  //   ...Styles.text,
-  //   color
-  // },
 
   text: {
     ...Styles.text,

@@ -1,21 +1,24 @@
-import { COLOR, FontFamily, space } from "@/constants";
-import { Text, View } from "react-native";
+import { space, Styles } from "@/constants";
+import { StyleSheet, Text, View } from "react-native";
 
-interface ICalendarTimeStoneProps{
-  text1: string
+interface ICalendarTimeStoneProps {
+  label: string;
 }
-export function CalendarTimeStone({text1}: ICalendarTimeStoneProps) {
+export function CalendarTimeStone({ label }: ICalendarTimeStoneProps) {
   return (
-    <View style={{ height: space(68) }}>
-      <Text
-        style={{
-          fontFamily: FontFamily.Prompt,
-          color: COLOR.textSub,
-          fontSize: space(12),
-        }}
-      >
-        {text1}
-      </Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>{label}</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  text: {
+    ...Styles.subText,
+    fontSize: space(12),
+  },
+
+  container: {
+    height: space(70),
+  }
+});

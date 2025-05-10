@@ -15,7 +15,7 @@ export default function LoginMainScreen() {
   const { t } = useTranslation("login");
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [isLoading, setLoading] = useState(false);
-  const { user, setUser } = useUser();
+  const {  setUser } = useUser();
 
   const handleLogin = async (fn: () => Promise<string | null>, isShowError = true) => {
     try {

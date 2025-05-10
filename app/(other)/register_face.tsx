@@ -97,7 +97,7 @@ export default function CheckinScreen() {
           >
             {stage === "face_challenge" && (
               <>
-                <Text>Dieu chinh mat theo huong</Text>
+                <Text>Điều chỉnh khuôn mặt theo hướng</Text>
                 <Text>{dir}</Text>
               </>
             )}

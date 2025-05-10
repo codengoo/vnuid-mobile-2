@@ -1,22 +1,52 @@
-import { ButtonChip } from "@/components";
+import { AtLoading, ButtonChip } from "@/components";
 import { Colors, fontSize, space, Styles } from "@/constants";
 import { useHideTabBar } from "@/context";
-import {
-  CalendarDayPicker,
-  CalendarEvent,
-  CalendarEventPad,
-  CalendarTimeStone,
-} from "@/screens/calendar";
+import { fetchSubjects } from "@/helpers/subject";
+import { CalendarDayPicker, CalendarEventList, CalendarTimeStoneList } from "@/screens/calendar";
+import { ISubject } from "@/types";
+import { isInInterval } from "@/utils";
 import { useFocusEffect } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import Animated from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function CalendarScreen() {
   const { scrollHandler, toggleTabBar } = useHideTabBar();
+  const [isLoading, setLoading] = useState(false);
+  const [subjects, setSubjects] = useState<ISubject[]>([]);
+  const [todaySubjects, setTodaySubjects] = useState<ISubject[]>([]);
+  const [date, setDate] = useState<Date>(new Date());
+
   useFocusEffect(() => {
     toggleTabBar(true);
   });
+
+  const fetchingData = async () => {
+    try {
+      setLoading(true);
+      const data = await fetchSubjects();
+      if (data) setSubjects(data);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchingData();
+  }, []);
+
+  useEffect(() => {
+    const subs = subjects.filter((subject) => isInInterval(new Date(subject.opening_day), date));
+    const sorted = [...subs].sort(
+      (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
+    );
+    
+    setTodaySubjects(sorted);
+  }, [date, subjects]);
+
+  if (isLoading) return <AtLoading></AtLoading>;
 
   return (
     <SafeAreaView style={{ backgroundColor: Colors.green100, flex: 1 }}>
@@ -29,48 +59,19 @@ export default function CalendarScreen() {
 
       <View style={{ padding: space(24), flexDirection: "column", gap: space(12) }}>
         <ButtonChip label="10 Thg 5" />
-        <CalendarDayPicker />
+        <CalendarDayPicker value={date} onChange={(date) => setDate(date)} />
       </View>
 
       <View style={{ flex: 1 }}>
         <Animated.ScrollView
-          style={{
-            backgroundColor: Colors.white,
-            borderRadius: space(20),
-            borderBottomEndRadius: 0,
-            borderBottomStartRadius: 0,
-          }}
+          style={styles.body}
           onScroll={scrollHandler}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flexDirection: "row", padding: space(20) }}
         >
-          <View
-            style={{
-              paddingRight: space(20),
-              height: "100%",
-            }}
-          >
-            <CalendarTimeStone text1="7:00" />
-            <CalendarTimeStone text1="9:00" />
-            <CalendarTimeStone text1="11:00" />
-            <CalendarTimeStone text1="13:00" />
-            <CalendarTimeStone text1="15:00" />
-            <CalendarTimeStone text1="17:00" />
-            <CalendarTimeStone text1="19:00" />
-            <CalendarTimeStone text1="21:00" />
-          </View>
-
-          <View style={{ flex: 1 }}>
-            <CalendarEvent
-              text1="Nhập môn An toàn thông tin"
-              text2="INT2209"
-              text3="201 Giảng đường 2"
-            />
-            <CalendarEventPad height={36} />
-            <CalendarEvent text1="Lập trình nhúng" text2="INT2210" text3="202 Giảng đường 1" />
-            <CalendarEventPad height={200} />
-          </View>
+          <CalendarTimeStoneList />
+          <CalendarEventList subjects={todaySubjects} />
         </Animated.ScrollView>
       </View>
     </SafeAreaView>
@@ -90,5 +91,12 @@ const styles = StyleSheet.create({
     ...Styles.text,
     lineHeight: space(20),
     marginTop: space(12),
+  },
+
+  body: {
+    backgroundColor: Colors.white,
+    borderRadius: space(20),
+    borderBottomEndRadius: 0,
+    borderBottomStartRadius: 0,
   },
 });

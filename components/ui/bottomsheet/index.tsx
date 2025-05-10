@@ -1,20 +1,24 @@
-import { COLOR, Space, space } from '@/constants';
+import { COLOR, Space, space } from "@/constants";
 import {
   BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetModal,
   BottomSheetModalProvider,
   BottomSheetView,
-} from '@gorhom/bottom-sheet';
-import { ReactNode, forwardRef, useCallback } from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
+} from "@gorhom/bottom-sheet";
+import { ReactNode, forwardRef, useCallback } from "react";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface IAtBottomSheetProps {
   children: ReactNode;
+  hasBackdrop?: boolean;
+  backgroundColor?: string;
+  snapPoints?: string[];
+  paddingSide?: boolean
 }
 
 export const AtBottomSheet = forwardRef<BottomSheetModal, IAtBottomSheetProps>(
-  ({children}, ref) => {
+  ({ children, hasBackdrop = true, backgroundColor = COLOR.background, snapPoints, paddingSide = true }, ref) => {
     const renderBackdrop = useCallback(
       (props: BottomSheetBackdropProps) => (
         <BottomSheetBackdrop
@@ -22,40 +26,43 @@ export const AtBottomSheet = forwardRef<BottomSheetModal, IAtBottomSheetProps>(
           disappearsOnIndex={-1}
           appearsOnIndex={0}
           style={{
-            backgroundColor: 'grey',
-            position: 'absolute',
+            backgroundColor: "grey",
+            position: "absolute",
             top: 0,
             left: 0,
-            height: '100%',
-            width: '100%',
+            height: "100%",
+            width: "100%",
           }}
         />
       ),
-      [],
+      []
     );
 
     return (
       <BottomSheetModalProvider>
         <BottomSheetModal
-          enablePanDownToClose
+          enablePanDownToClose={false}
           ref={ref}
-          backdropComponent={renderBackdrop}
+          backdropComponent={hasBackdrop ? renderBackdrop : null}
           handleStyle={{
-            backgroundColor: COLOR.background,
+            backgroundColor: backgroundColor,
           }}
           style={{
             borderRadius: space(28),
-            overflow: 'hidden',
-            margin: space(16),
+            overflow: "hidden",
+            margin: paddingSide ? space(16): 0,
             marginTop: 0,
-          }}>
-          <BottomSheetView style={{backgroundColor: COLOR.background}}>
-            <SafeAreaView edges={['bottom']} style={{padding: Space.sd}}>
+          }}
+          snapPoints={snapPoints ? snapPoints : undefined}
+          index={snapPoints ? 1 : undefined}
+        >
+          <BottomSheetView style={{ backgroundColor, flex: 1 }}>
+            <SafeAreaView edges={["bottom"]} style={{ padding: Space.sd, flex: 1 }}>
               {children}
             </SafeAreaView>
           </BottomSheetView>
         </BottomSheetModal>
       </BottomSheetModalProvider>
     );
-  },
+  }
 );

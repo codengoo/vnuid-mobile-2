@@ -1,37 +1,69 @@
-import { Colors, FontFamily, space } from "@/constants";
-import { Text, View } from "react-native";
+import { Colors, fontSize, space, Styles } from "@/constants";
+import { ISubject } from "@/types";
+import { differenceInHours, set, startOfDay, startOfHour } from "date-fns";
+import { router } from "expo-router";
+import { useMemo } from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ICalendarEventProp {
-  text1: string;
-  text2: string;
-  text3: string;
+  subject: ISubject;
 }
-export function CalendarEvent({ text1, text2, text3 }: ICalendarEventProp) {
+export function CalendarEvent({ subject }: ICalendarEventProp) {
+  const height = useMemo(() => {
+    const start = startOfHour(new Date(subject.start_time));
+    const end = startOfHour(new Date(subject.end_time));
+    const hours = differenceInHours(end, start);
+    return hours * space(70);
+  }, [subject]);
+
+  const top = useMemo(() => {
+    const start = startOfHour(new Date(subject.start_time));
+    const hours = differenceInHours(start, set(startOfDay(new Date()), { hours: 7 }));
+    return hours * space(70);
+  }, [subject]);
+
+  const navigateToSubjectDetails = () => router.navigate(`/subject?subject_id=${subject.id}`);
+
   return (
-    <View
-      style={{
-        borderLeftWidth: space(2),
-        borderLeftColor: Colors.yellow900,
-        paddingLeft: space(20),
-      }}
+    <TouchableOpacity
+      onPress={navigateToSubjectDetails}
+      style={[
+        styles.container,
+        height != undefined && { height },
+        top !== undefined && { top, left: space(-2) },
+      ]}
     >
-      <View
-        style={{
-          height: space(100),
-          padding: space(12),
-          backgroundColor: Colors.yellow200,
-          width: "100%",
-          borderRadius: space(8),
-        }}
-      >
-        <Text style={{ fontFamily: FontFamily.Prompt, fontWeight: "500" }}>{text1}</Text>
-        <Text style={{ fontFamily: FontFamily.Prompt, fontWeight: "400", fontSize: space(12) }}>
-          {text2}
-        </Text>
-        <Text style={{ fontFamily: FontFamily.Prompt, fontWeight: "400", fontSize: space(12) }}>
-          {text3}
-        </Text>
+      <View style={styles.event}>
+        <Text style={styles.subjectText}>{subject.name}</Text>
+        <Text style={styles.text}>{subject.code}</Text>
+        <Text style={styles.text}>{subject.address}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    borderLeftWidth: space(2),
+    borderLeftColor: Colors.yellow900,
+    paddingLeft: space(20),
+    flexDirection: "row",
+  },
+  event: {
+    padding: space(12),
+    backgroundColor: Colors.yellow200,
+    width: "100%",
+    borderRadius: space(8),
+    overflow: "hidden",
+  },
+
+  text: {
+    ...Styles.text,
+    fontSize: fontSize(14),
+  },
+
+  subjectText: {
+    ...Styles.text,
+    fontWeight: "500",
+  },
+});
