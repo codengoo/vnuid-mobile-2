@@ -19,15 +19,18 @@ export default function OtherLayout() {
         ),
       })}
     >
-      <Stack.Screen
-        name="subject/index"
-        options={{ headerTitle: "", headerShown: false, headerTransparent: true }}
-      />
       <Stack.Screen name="setup/verify_password" options={{ headerTitle: "Xác thực" }} />
       <Stack.Screen name="setup/verify_fingerprint" options={{ headerTitle: "Xác thực vân tây" }} />
       <Stack.Screen name="admin_contact" options={{ headerTitle: "Liên hệ" }} />
       <Stack.Screen name="user_info" options={{ headerTitle: "Thông tin cá nhân" }} />
-      <Stack.Screen name="register_face" options={{ headerTitle: "Đăng ký" }} />
+      <Stack.Screen
+        name="subject/index"
+        options={{ headerTitle: "", headerShown: false, headerTransparent: true }}
+      />
+      <Stack.Screen
+        name="register_face"
+        options={{ headerTitle: "", headerShown: false, headerTransparent: true }}
+      />
       <Stack.Screen
         name="first_login"
         options={{

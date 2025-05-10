@@ -7,35 +7,42 @@ import { AtCamera } from "../camera";
 
 interface ICameraScanFaceProps {
   children: React.ReactNode;
-  onResult: (result: ICameraFaceResult) => void;
+  onResult?: (result: ICameraFaceResult) => void;
+  embedding?: number[]
 }
 
-export function CameraScanFace({ children, onResult }: ICameraScanFaceProps) {
+export function CameraScanFace({ children, onResult, embedding }: ICameraScanFaceProps) {
   const plugin = VisionCameraProxy.initFrameProcessorPlugin("rnai", {});
   const lastProcessedTimeRef = useRef(0);
   const fpsLimit = 1;
   const minFrameInterval = 1000 / fpsLimit;
   const myFunctionJS = onResult ? Worklets.createRunOnJS(onResult) : null;
 
-  const frameProcessor = useFrameProcessor((frame) => {
-    "worklet";
-    const now = Date.now();
-    if (now - lastProcessedTimeRef.current >= minFrameInterval) {
-      lastProcessedTimeRef.current = now;
+  const frameProcessor = useFrameProcessor(
+    (frame) => {
+      "worklet";
+      const now = Date.now();
+      if (now - lastProcessedTimeRef.current >= minFrameInterval) {
+        lastProcessedTimeRef.current = now;
 
-      if (plugin == null) throw new Error("Failed to load Frame Processor Plugin!");
-      const raw = plugin.call(frame, { embedding: emd.embedding, position: "front" });
-      try {
-        const result = JSON.parse(raw as string) as ICameraFaceResult;
-        myFunctionJS && myFunctionJS(result);
-      } catch (error) {
-        console.log(error);
+        if (plugin == null) throw new Error("Failed to load Frame Processor Plugin!");
+        
+        console.log("Here", embedding?.length);
+        const emb = embedding ?? emd.embedding;
+        const raw = plugin.call(frame, { embedding: emb, position: "front" });
+        try {
+          const result = JSON.parse(raw as string) as ICameraFaceResult;
+          myFunctionJS && myFunctionJS(result);
+        } catch (error) {
+          console.log(error);
+        }
       }
-    }
-  }, []);
+    },
+    [myFunctionJS, embedding]
+  );
 
   return (
-    <AtCamera position="front" frameProcessor={frameProcessor}>
+    <AtCamera position="front" frameProcessor={onResult ? frameProcessor : undefined}>
       {children}
     </AtCamera>
   );

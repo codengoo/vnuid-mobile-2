@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
   textStatus: {
     ...Styles.text,
     fontWeight: "500",
-    fontSize: space(18),
+    fontSize: space(14),
   },
 
   wifiInfoWrapper: {

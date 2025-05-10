@@ -23,5 +23,6 @@ const styles = StyleSheet.create({
     padding: space(20),
     borderRadius: space(20),
     gap: space(12),
+    opacity: 0.7
   },
 });

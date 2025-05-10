@@ -39,6 +39,12 @@ export function checkDirection(input: IFace, direction: IDirection) {
   const y: IDirection = pitch > 15 ? "up" : pitch < -15 ? "down" : "forward";
   const x: IDirection = yaw > 15 ? "left" : yaw < -15 ? "right" : "forward";
 
+  if (direction === "forward") return x == "forward" && y == "forward";
+  if (direction === "left") return x == "left" && y == "forward";
+  if (direction === "right") return x == "right" && y == "forward";
+  if (direction === "up") return x == "forward" && y == "up";
+  if (direction === "down") return x == "forward" && y == "down";
+
   console.log(x, y);
   return direction === x || direction === y;
 }

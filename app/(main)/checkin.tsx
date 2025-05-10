@@ -9,7 +9,7 @@ import { CheckinInfo } from "@/screens/checkin/checkin_info";
 import { ISession } from "@/types";
 import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import Toast from "react-native-toast-message";
 
@@ -19,14 +19,16 @@ export default function CheckinScreen() {
   const [face, setFace] = useState<number[]>([]);
   const [isLoading, setLoading] = useState(false);
 
-  const { dir, handleFace, stage } = useFaceChallenge();
+  const { dir, handleFaceMatch, stage, reset } = useFaceChallenge();
 
   const setupFace = async () => {
     const face = await getFace();
     if (face.length === 0) {
       router.navigate("/first_login");
+      return false;
     } else {
       setFace(face);
+      return true;
     }
   };
 
@@ -38,19 +40,67 @@ export default function CheckinScreen() {
         text1: "Lỗi",
         text2: "Không có phiên điểm danh nào đang diễn ra",
       });
+      router.replace("/home");
+      return false;
     } else {
       setSessions(sessions);
+      return true;
     }
   };
 
-  useFocusEffect(() => {
-    // setupFace();
-    fetchSession();
+  const handleCompleteFace = () => {
+    try {
+      setLoading(true);
+      Toast.show({
+        type: "success",
+        text1: "Thành công",
+        text2: "Điểm danh thành công",
+      });
+    } catch (error) {
+      console.log(error);
+      Toast.show({
+        type: "error",
+        text1: "Lỗi",
+        text2: "Không thể thực hiện điểm danh",
+      });
+    } finally {
+      setLoading(false);
+      router.replace("/home");
+    }
+  };
+
+  const prepare = async () => {
+    setLoading(true);
     toggleTabBar(false);
-  });
+    const isFaceOk = await setupFace();
+    if (!isFaceOk) return;
+    const isSessionOk = await fetchSession();
+    if (!isSessionOk) return;
+    setLoading(false);
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      // if (stage === "done") reset();
+      prepare();
+    }, [])
+  );
+
+  useEffect(() => {
+    if (stage === "done") {
+      handleCompleteFace();
+    } else if (stage === "failed") {
+      Toast.show({
+        type: "error",
+        text1: "Lỗi",
+        text2: "Khuôn mặt không trùng khớp",
+      });
+      router.replace("/home");
+    }
+  }, [stage]);
 
   return (
-    <CameraScanFace onResult={isLoading ? () => {} : handleFace}>
+    <CameraScanFace onResult={isLoading ? undefined : handleFaceMatch} embedding={face}>
       <View style={styles.container}>
         <ActionFace dir={dir} stage={stage} />
         <CheckinInfo sessions={sessions} />
