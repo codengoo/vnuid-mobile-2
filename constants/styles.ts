@@ -33,9 +33,8 @@ export const Styles = StyleSheet.create({
   },
 
   headerText: {
+    ...TextStyle.text,
     textAlign: "center",
-    color: COLOR.text,
-    fontFamily: FontFamily.Prompt,
   },
 
   sectionText: {
