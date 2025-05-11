@@ -9,6 +9,7 @@ import { useFocusEffect } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useMemo } from "react";
 import { StatusBar, StyleSheet, Text, View } from "react-native";
+import Animated from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const menu = () => {
@@ -48,6 +49,18 @@ const menu = () => {
           onPress: () => router.push("/setup/language"),
         },
         {
+          title: "Lịch sử điểm danh",
+          expandable: true,
+          icon: Icon.CircleCheckIcon,
+          onPress: () => router.push("/subject/checkin_history"),
+        },
+        {
+          title: "Danh sách môn học",
+          expandable: true,
+          icon: Icon.BackpackIcon,
+          onPress: () => router.push("/subject/checkin_history"),
+        },
+        {
           title: "Thông tin quản trị",
           icon: Icon.InfoIcon,
           onPress: () => router.push("/admin_contact"),
@@ -67,7 +80,7 @@ const menu = () => {
 };
 
 export default function ProfileScreen() {
-  const { toggleTabBar } = useHideTabBar();
+  const { toggleTabBar, scrollHandler } = useHideTabBar();
   const { user } = useUser();
   const menuSetting = useMemo(() => menu(), []);
   const navigateToUserProfile = () => router.navigate("/user_info");
@@ -80,16 +93,24 @@ export default function ProfileScreen() {
   return (
     <SafeAreaView style={{ backgroundColor: Colors.yellow100, flex: 1 }}>
       <StatusBar barStyle={"dark-content"} />
-      <View style={styles.header}>
-        <AtAvatar size={96} shape="circle" isPadding />
-        <View style={{ flexDirection: "column", alignItems: "center" }}>
-          <Text style={styles.nameText}>{user.name}</Text>
-          <Text style={Styles.subText}>{user.email}</Text>
-          <AtChip label="Your profile" onPress={navigateToUserProfile} />
+      <Animated.ScrollView
+        // style={styles.body}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
+        showsVerticalScrollIndicator={false}
+        // contentContainerStyle={{ flexDirection: "row", padding: space(20) }}
+      >
+        <View style={styles.header}>
+          <AtAvatar size={96} shape="circle" isPadding />
+          <View style={{ flexDirection: "column", alignItems: "center" }}>
+            <Text style={styles.nameText}>{user.name}</Text>
+            <Text style={Styles.subText}>{user.email}</Text>
+            <AtChip label="Your profile" onPress={navigateToUserProfile} />
+          </View>
         </View>
-      </View>
-
-      <AtMenu menu={menuSetting} />
+        <AtMenu menu={menuSetting} />
+        <View style={{ height: space(100) }}></View>
+      </Animated.ScrollView>
     </SafeAreaView>
   );
 }
