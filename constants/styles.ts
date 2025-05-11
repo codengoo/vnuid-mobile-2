@@ -32,7 +32,7 @@ export const Styles = StyleSheet.create({
     fontSize: FontSize.sm,
   },
 
-  headerText: {
+  centerText: {
     ...TextStyle.text,
     textAlign: "center",
   },

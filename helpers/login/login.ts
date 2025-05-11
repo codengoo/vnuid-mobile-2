@@ -23,10 +23,10 @@ async function switchLogin(data: IResponseLogin, status: number): Promise<string
 
     case 202:
       await AsyncStorage.setItem(STG_AUTH_2FA_TOKEN, data.token);
-      // navigationRef.navigate('Login2Fa', {
-      //   token: data.token,
-      //   allowMethods: data.allow,
-      // });
+      router.push({
+        pathname: "/login/2fa",
+        params: { allowMethods: data.allow, token: data.token },
+      });
       return null;
     default:
       throw new Error("Could not login");
@@ -106,10 +106,10 @@ export async function signInWithNfc(nfc: string, uid: string) {
 }
 
 export async function signInWithBio() {
-  const { success } = await LocalAuthentication.authenticateAsync();
-  if (!success) throw new Error("Fingerprint authentication failed");
   const bio_code = await AsyncStorage.getItem(STG_AUTH_BIO);
   if (!bio_code) throw new Error("Fingerprint not set");
+  const { success } = await LocalAuthentication.authenticateAsync();
+  if (!success) throw new Error("Fingerprint authentication failed");
   const uid = await AsyncStorage.getItem(STG_UID);
   if (!uid) throw new Error("UID not found");
 

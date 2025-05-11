@@ -27,8 +27,13 @@ export interface ISubject {
   address: string;
   is_done: string;
   teacher_id: string;
-  session: string[];
+  session: ISession[];
   students: IUser[];
+  teacher: IUser;
+  _count: {
+    students: number;
+    session: number;
+  };
 }
 
 export interface ISession {
@@ -37,6 +42,6 @@ export interface ISession {
   start: string;
   duration: number;
   repeat: string;
-  subjectID: string;
+  subjectId: string;
   subject: ISubject;
 }

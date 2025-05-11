@@ -6,12 +6,12 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   hiText: {
-    fontFamily: FontFamily.Prompt.normal.medium,
+    fontFamily: FontFamily.Prompt,
     fontSize: fontSize(16),
     color: COLOR.text,
   },
   appText: {
-    fontFamily: FontFamily.Lobster.regular,
+    fontFamily: FontFamily.Lobster,
     fontSize: fontSize(32),
     color: COLOR.text,
   },

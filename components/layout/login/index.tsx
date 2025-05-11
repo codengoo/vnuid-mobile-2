@@ -1,7 +1,7 @@
-import {ReactNode} from 'react';
-import {KeyboardAvoidingView, Platform, StatusBar, View} from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {styles} from './styles';
+import { ReactNode } from 'react';
+import { KeyboardAvoidingView, Platform, StatusBar, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { styles } from './styles';
 
 export const LoginLayout = ({children}: {children: ReactNode}) => {
   return (

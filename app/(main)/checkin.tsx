@@ -19,7 +19,7 @@ export default function CheckinScreen() {
   const [face, setFace] = useState<number[]>([]);
   const [isLoading, setLoading] = useState(false);
 
-  const { dir, handleFaceMatch, stage, reset } = useFaceChallenge();
+  const { dir, handleFaceMatch, stage } = useFaceChallenge();
 
   const setupFace = async () => {
     const face = await getFace();
@@ -48,9 +48,10 @@ export default function CheckinScreen() {
     }
   };
 
-  const handleCompleteFace = () => {
+  const handleCompleteCheckin = () => {
     try {
       setLoading(true);
+
       Toast.show({
         type: "success",
         text1: "Thành công",
@@ -88,7 +89,7 @@ export default function CheckinScreen() {
 
   useEffect(() => {
     if (stage === "done") {
-      handleCompleteFace();
+      handleCompleteCheckin();
     } else if (stage === "failed") {
       Toast.show({
         type: "error",
