@@ -22,7 +22,7 @@ export default function LoginMainScreen() {
   };
   const showModal = () => bottomSheetModalRef.current?.present();
 
-  // const navigateToQRLogin = () => navigate('LoginQRMain');
+  const navigateToQRLogin = () => router.push({ pathname: "/login/qr" });
   const navigateToPassLogin = () => router.push({ pathname: "/login/pass" });
   const navigateToNfcLogin = () =>
     router.push({ pathname: "/login/2fa_nfc", params: { is_2fa: "true" } });
@@ -73,7 +73,7 @@ export default function LoginMainScreen() {
             icon={QRIcon}
             disabled={isLoading}
             widthFull
-            // onPress={navigateToNfcLogin}
+            onPress={navigateToQRLogin}
           />
 
           <TouchableOpacity style={styles.touchBtn} onPress={() => handleBioLogin(true)}>

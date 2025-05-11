@@ -42,11 +42,15 @@ const menu = () => {
     {
       items: [
         {
+          title: "Ngôn ngữ",
+          expandable: true,
+          icon: Icon.EarthIcon,
+          onPress: () => router.push("/setup/language"),
+        },
+        {
           title: "Thông tin quản trị",
           icon: Icon.InfoIcon,
-          onPress: () => {
-            router.push("/admin_contact");
-          },
+          onPress: () => router.push("/admin_contact"),
         },
       ],
     },

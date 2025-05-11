@@ -8,6 +8,7 @@ export * from './check';
 export * from './chevron_right';
 export * from "./circle_check";
 export * from './close';
+export * from './earth';
 export * from './eye_close';
 export * from './eye_open';
 export * from './fingerprint';
