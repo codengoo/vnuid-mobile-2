@@ -9,7 +9,7 @@ async function switchLogin(data: IResponseLogin, status: number) {
     case 200:
       await AsyncStorage.setItem(STG_AUTH_TOKEN, data.token);
       router.replace("/home");
-      break;
+      return data.token;
 
     default:
       throw new Error("Could not login");
@@ -29,8 +29,8 @@ export async function signInWith2FaPass(password: string, save: boolean) {
       save_device: save,
     });
 
-    console.log(response.data);
-    await switchLogin(response.data, response.status);
+    const token = await switchLogin(response.data, response.status);
+    return token;
   } catch (error) {
     console.log(error);
     throw error;
@@ -44,8 +44,8 @@ export async function signInWithCode2Fa(code: string, save: boolean) {
       save_device: save,
     });
 
-    console.log(response.data);
-    await switchLogin(response.data, response.status);
+    const token = await switchLogin(response.data, response.status);
+    return token;
   } catch (error) {
     console.log(error);
     throw error;
@@ -65,8 +65,8 @@ export async function signInWithNfc2Fa(nfc: string, save: boolean) {
       save_device: save,
     });
 
-    console.log(response.data);
-    await switchLogin(response.data, response.status);
+    const token = await switchLogin(response.data, response.status);
+    return token;
   } catch (error) {
     console.log(error);
     throw error;

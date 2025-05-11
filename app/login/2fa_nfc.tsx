@@ -7,7 +7,7 @@ import { StaticScreenProps } from "@react-navigation/native";
 import { router } from "expo-router";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet } from "react-native";
+import { Image } from "react-native";
 // import NfcManager, { NfcTech } from "react-native-nfc-manager";
 import Toast from "react-native-toast-message";
 
@@ -93,12 +93,3 @@ export default function LoginNfcScreen() {
     </LoginLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  actionWrapper: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-});

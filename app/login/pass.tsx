@@ -2,23 +2,23 @@ import { AtInput, Icon } from "@/components";
 import { LoginContentLayout, LoginDecoratorLayout, LoginLayout } from "@/components/layout";
 import { space } from "@/constants";
 import { useUser } from "@/context";
-import { handleLoginBase, signInWith2FaPass } from "@/helpers/login";
-import { HeaderLogin, LoginSave, LoginSection } from "@/screens/login";
+import { handleLoginBase, signInWithPass } from "@/helpers/login";
+import { HeaderLogin, LoginForm, LoginSave, LoginSection } from "@/screens/login";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Image, StyleSheet, View } from "react-native";
+import { Image } from "react-native";
 
-export default function LoginPass2FaScreen() {
-  const [password, setPassword] = useState("");
-  const [isSave, setSave] = useState(false);
+export default function LoginPassScreen() {
   const { t } = useTranslation("login");
   const { setUser } = useUser();
+  const [uid, setUid] = useState("");
+  const [password, setPassword] = useState("");
+  const [isSave, setSave] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
-  const handleLogin = async () => {
-    await handleLoginBase(()=>signInWith2FaPass(password, isSave), setLoading, setUser, t, true);
+  const handleLogin = () => {
+    handleLoginBase(() => signInWithPass(uid, password), setLoading, setUser, t, true);
   };
-
 
   return (
     <LoginLayout>
@@ -31,30 +31,26 @@ export default function LoginPass2FaScreen() {
         />
       </LoginDecoratorLayout>
       <LoginContentLayout>
-        <View style={styles.container}>
+        <LoginForm description="Type your username and password to continue">
+          <AtInput
+            icon={Icon.NumberIcon}
+            placeholder="21020365"
+            value={uid}
+            setValue={setUid}
+            mode="numeric"
+          />
           <AtInput
             icon={Icon.PasswordIcon}
             placeholder="***"
-            onEnter={handleLogin}
-            setValue={setPassword}
             value={password}
+            setValue={setPassword}
             mode="password"
           />
 
           <LoginSave isSave={isSave} setSave={setSave} />
-        </View>
-
+        </LoginForm>
         <LoginSection handleLogin={handleLogin} isLoading={isLoading} />
       </LoginContentLayout>
     </LoginLayout>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    flexDirection: "column",
-    gap: space(8),
-    alignItems: "center",
-  },
-});

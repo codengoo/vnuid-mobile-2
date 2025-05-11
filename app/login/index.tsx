@@ -2,52 +2,34 @@ import { AtBottomSheet, AtButtonBox, AtButtonLink, ButtonLang, Icon } from "@/co
 import { GoogleIcon, QRIcon } from "@/components/ui/icon";
 import { COLOR, Space, space, Styles } from "@/constants";
 import { useUser } from "@/context";
-import { fetchUserData, signInWithBio, signInWithGoogle } from "@/helpers/login";
+import { handleLoginBase, signInWithBio, signInWithGoogle } from "@/helpers/login";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Toast from "react-native-toast-message";
 
 export default function LoginMainScreen() {
   const { t } = useTranslation("login");
+  const { setUser } = useUser();
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const [isLoading, setLoading] = useState(false);
-  const {  setUser } = useUser();
 
-  const handleLogin = async (fn: () => Promise<string | null>, isShowError = true) => {
-    try {
-      setLoading(true);
-      const token = await fn();
-      if (token) {
-        const userData = await fetchUserData(token);
-        setUser(userData);
-      }
-    } catch (error) {
-      isShowError &&
-        Toast.show({
-          type: "error",
-          text1: t("toast_failed"),
-          text2: t("toast_failed_description"),
-          autoHide: true,
-        });
-    } finally {
-      setLoading(false);
-    }
+  const handleLogin = async (fn: () => Promise<string | null>, isShowError?: boolean) => {
+    await handleLoginBase(fn, setLoading, setUser, t, isShowError);
   };
-
-  const showModal = () => {
-    bottomSheetModalRef.current?.present();
-  };
+  const showModal = () => bottomSheetModalRef.current?.present();
 
   // const navigateToQRLogin = () => navigate('LoginQRMain');
-  // const navigateToPassLogin = () => navigate('LoginPass');
-  // const navigateToNfcLogin = () => navigate('LoginNfc', {is2fa: false});
+  const navigateToPassLogin = () => router.push({ pathname: "/login/pass" });
+  const navigateToNfcLogin = () =>
+    router.push({ pathname: "/login/2fa_nfc", params: { is_2fa: "true" } });
 
-  const handleGoogleLogin = async () => handleLogin(signInWithGoogle);
-
+  const handleGoogleLogin = async () => {
+    handleLogin(signInWithGoogle);
+  };
   const handleBioLogin = async (showError: boolean) => {
     handleLogin(signInWithBio, showError);
   };
@@ -91,7 +73,7 @@ export default function LoginMainScreen() {
             icon={QRIcon}
             disabled={isLoading}
             widthFull
-            // onPress={navigateToQRLogin}
+            // onPress={navigateToNfcLogin}
           />
 
           <TouchableOpacity style={styles.touchBtn} onPress={() => handleBioLogin(true)}>
@@ -111,14 +93,14 @@ export default function LoginMainScreen() {
             icon={Icon.PasswordIcon}
             expandable
             color="yellow"
-            // onPress={navigateToPassLogin}
+            onPress={navigateToPassLogin}
           />
           <AtButtonBox
             title={t("using_NFC")}
             icon={Icon.NfcIcon}
             expandable
             color="yellow"
-            // onPress={navigateToNfcLogin}
+            onPress={navigateToNfcLogin}
           />
         </View>
       </AtBottomSheet>

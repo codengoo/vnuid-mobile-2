@@ -1,12 +1,6 @@
 import { Colors } from "@/constants";
 import { Dispatch, SetStateAction, useState } from "react";
-import {
-  StyleProp,
-  TextInput,
-  TouchableOpacity,
-  View,
-  ViewStyle,
-} from "react-native";
+import { StyleProp, TextInput, TouchableOpacity, View, ViewStyle } from "react-native";
 import { EyeCloseIcon, EyeOpenIcon, IIcon } from "../icon";
 import { styles } from "./styles";
 
@@ -31,7 +25,7 @@ export function AtInput({
   style,
   endComponent,
 }: AtInputProps) {
-  const [isHideText, setHideText] = useState(true);
+  const [isHideText, setHideText] = useState(mode === "password");
   const handleToggle = () => setHideText((prev) => !prev);
   return (
     <View style={[styles.container, style]}>

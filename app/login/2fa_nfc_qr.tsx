@@ -1,8 +1,6 @@
-import { AtCamera } from "@/components/camera";
-import { Colors, space } from "@/constants";
+import { CameraScanQr } from "@/components/camera";
 import { useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { StyleSheet, Text, View } from "react-native";
 import { useCodeScanner } from "react-native-vision-camera";
 
 export default function ScanNfcQrScreen() {
@@ -44,34 +42,7 @@ export default function ScanNfcQrScreen() {
   });
 
   return (
-    <AtCamera position="back">
-      <View style={styles.squareFrame} />
-
-      <Text style={styles.instructionText}>Align QR code in the box</Text>
-    </AtCamera>
+    <CameraScanQr />
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  overlay: {
-    ...StyleSheet.absoluteFillObject, // full screen
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  squareFrame: {
-    width: space(250),
-    height: space(250),
-    borderWidth: space(2),
-    borderColor: Colors.white,
-    borderRadius: space(20),
-    boxShadow: "0 0 0 9999px rgba(0, 0, 0, 0.7)",
-  },
-  instructionText: {
-    marginTop: 20,
-    color: "white",
-    fontSize: 16,
-  },
-});

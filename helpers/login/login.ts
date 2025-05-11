@@ -57,7 +57,7 @@ export async function signInWithPass(username: string, password: string) {
   try {
     const response = await axios.post("/auth/login_pass", {
       password: password,
-      email: username,
+      username: username,
       device_id: deviceID,
       device_name: deviceName,
     });
