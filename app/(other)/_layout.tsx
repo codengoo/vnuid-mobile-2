@@ -19,11 +19,14 @@ export default function OtherLayout() {
         ),
       })}
     >
+      <Stack.Screen name="admin_contact" options={{ headerTitle: "Liên hệ" }} />
+      <Stack.Screen name="user_info" options={{ headerTitle: "Thông tin cá nhân" }} />
+      <Stack.Screen name="search" options={{ headerTitle: "Thống tin môn học" }} />
+
       <Stack.Screen name="setup/language" options={{ headerTitle: "Ngôn ngữ" }} />
       <Stack.Screen name="setup/verify_password" options={{ headerTitle: "Xác thực" }} />
       <Stack.Screen name="setup/verify_fingerprint" options={{ headerTitle: "Xác thực vân tây" }} />
-      <Stack.Screen name="admin_contact" options={{ headerTitle: "Liên hệ" }} />
-      <Stack.Screen name="user_info" options={{ headerTitle: "Thông tin cá nhân" }} />
+      
       <Stack.Screen name="subject/checkin_history" options={{ headerTitle: "Lịch sử điểm danh" }} />
       <Stack.Screen name="subject/subject_list" options={{ headerTitle: "Danh sách môn học" }} />
       <Stack.Screen name="subject/student_list" options={{ headerTitle: "Danh sách sinh viên" }} />

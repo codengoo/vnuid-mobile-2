@@ -20,7 +20,9 @@ export async function fetchSubjects(from?: Date, to?: Date) {
       }
     );
     const subjects = response.data.data;
-    return subjects as Omit<ISubject, "session" | "students">[];
+    console.log(subjects);
+
+    return subjects as ISubject[];
   } catch (error) {
     console.log(error);
 

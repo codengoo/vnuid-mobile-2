@@ -22,7 +22,7 @@ export default function CalendarScreen() {
     toggleTabBar(true);
   });
 
-  const fetchingData = async () => {
+  const preload = async () => {
     try {
       setLoading(true);
       const data = await fetchSubjects();
@@ -34,7 +34,7 @@ export default function CalendarScreen() {
   };
 
   useEffect(() => {
-    fetchingData();
+    preload();
   }, []);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function CalendarScreen() {
     const sorted = [...subs].sort(
       (a, b) => new Date(a.start_time).getTime() - new Date(b.start_time).getTime()
     );
-    
+
     setTodaySubjects(sorted);
   }, [date, subjects]);
 

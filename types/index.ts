@@ -45,3 +45,8 @@ export interface ISession {
   subjectId: string;
   subject: ISubject;
 }
+
+export interface ISearchResult {
+  subjects: ISubject[];
+  sessions: ISession[];
+}

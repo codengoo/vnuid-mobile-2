@@ -58,7 +58,7 @@ const menu = () => {
           title: "Danh sách môn học",
           expandable: true,
           icon: Icon.BackpackIcon,
-          onPress: () => router.push("/subject/checkin_history"),
+          onPress: () => router.push("/subject/subject_list"),
         },
         {
           title: "Thông tin quản trị",

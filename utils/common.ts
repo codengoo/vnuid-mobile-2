@@ -27,3 +27,8 @@ export const isInInterval = (eventStart: Date, checkDate: Date) => {
   const days = differenceInCalendarDays(check, start);
   return days % 7 === 0;
 };
+
+export const formatTime = (time: Date | string) => {
+  const date = new Date(time);
+  return `${date.getHours()}h${date.getMinutes()}`;
+}
