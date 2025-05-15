@@ -12,8 +12,8 @@ export function SessionInfo({ session }: ISessionInfoProps) {
     <View style={styles.container}>
       <Text style={styles.title}>{session.name}</Text>
       <View style={styles.contentInfo}>
-        <AtChip label={session.subject.code} />
-        <Text style={styles.info}>{session.subject.name}</Text>
+        <AtChip label={session.course.code} />
+        <Text style={styles.info}>{session.course.name}</Text>
       </View>
     </View>
   );

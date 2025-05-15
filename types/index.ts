@@ -24,7 +24,7 @@ export interface ICourse {
   opening_day: string;
   start_time: string;
   end_time: string;
-  address: string;
+  room: IRoom;
   is_done: string;
   teacher_id: string;
   session: ISession[];
@@ -42,11 +42,32 @@ export interface ISession {
   start: string;
   duration: number;
   repeat: string;
-  subjectId: string;
-  subject: ICourse;
+  course_id: string;
+  course: ICourse;
 }
 
 export interface ISearchResult {
   subjects: ICourse[];
   sessions: ISession[];
+}
+
+export interface IRoom {
+  id: string;
+  address: string;
+  name: string;
+  wifi: IWifiStatus[];
+}
+
+export interface IWifiStatus {
+  room_id: string;
+  wifi_id: string;
+  type: "LARGER" | "SMALLER";
+  rssi: number;
+  wifi: IWifi;
+}
+
+export interface IWifi {
+  id: string;
+  name: string;
+  mac: string;
 }

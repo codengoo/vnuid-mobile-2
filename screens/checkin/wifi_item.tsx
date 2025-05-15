@@ -1,20 +1,24 @@
 import { AtChip } from "@/components";
 import { space } from "@/constants";
+import { IWifiStatus } from "@/types";
 import { StyleSheet, View } from "react-native";
 
-export function WifiInfoItem() {
+interface IWifiInfoItemProps {
+  wifi: IWifiStatus;
+}
+export function WifiInfoItem({ wifi }: IWifiInfoItemProps) {
   return (
-    <View style = {styles.container}>
-      <AtChip label="00:1A:2B:3C:4D:5E" color="gray" />
-      <AtChip label="-75dB" color="yellow"/>
+    <View style={styles.container}>
+      <AtChip label={wifi.wifi.mac} color="gray" />
+      <AtChip label={wifi.rssi.toString()} color="yellow" />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: space(4),
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

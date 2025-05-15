@@ -11,7 +11,11 @@ export async function checkin(session: string) {
   try {
     const response = await axios.post(
       `/checkin/${session}`,
-      { isVerify: true, deviceId: deviceID, time: new Date().toISOString() },
+      {
+        isVerify: true,
+        deviceId: deviceID,
+        time: new Date().toISOString(),
+      },
       { headers: { Authorization: `Bearer ${token}` } }
     );
 

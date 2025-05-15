@@ -8,32 +8,8 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-// import WifiManager from "react-native-wifi-reborn";
 
 export default function HomeScreen() {
-  //   async function getSignalStrength() {
-  //     if (Platform.OS === 'android') {
-  //       const granted = await PermissionsAndroid.request(
-  //         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-  //       );
-
-  //       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-  //         WifiManager.reScanAndLoadWifiList()
-  //           .then(info => {
-  //            console.log(info);
-  //           })
-  //           .catch(err => {
-  //             console.error('Lỗi lấy info WiFi:', err);
-  //           });
-  //       } else {
-  //         console.log('Permission denied');
-  //       }
-  //     }
-  //   }
-  //   useEffect(() => {
-  //     getSignalStrength();
-  //   }, []);
-
   const { toggleTabBar } = useHideTabBar();
   const [searchText, setSearchText] = useState("");
   const { user } = useUser();

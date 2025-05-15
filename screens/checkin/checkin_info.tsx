@@ -6,14 +6,19 @@ import { WifiInfo } from "./wifi_info";
 
 interface ICheckinInfoProps {
   sessions: ISession[];
+  isOk: boolean;
 }
 
-export function CheckinInfo({ sessions }: ICheckinInfoProps) {
+export function CheckinInfo({ sessions, isOk }: ICheckinInfoProps) {
   return (
-    <View style={styles.container}>
-      {sessions[0] && <SessionInfo session={sessions[0]} />}
-      <WifiInfo />
-    </View>
+    <>
+      {sessions[0] && (
+        <View style={styles.container}>
+          <SessionInfo session={sessions[0]} />
+          <WifiInfo wifi={sessions[0].course.room.wifi} isOk={isOk} />
+        </View>
+      )}
+    </>
   );
 }
 
@@ -23,6 +28,6 @@ const styles = StyleSheet.create({
     padding: space(20),
     borderRadius: space(20),
     gap: space(12),
-    opacity: 0.7
+    opacity: 0.7,
   },
 });
