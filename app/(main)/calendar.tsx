@@ -3,7 +3,7 @@ import { Colors, fontSize, space, Styles } from "@/constants";
 import { useHideTabBar } from "@/context";
 import { fetchSubjects } from "@/helpers/subject";
 import { CalendarDayPicker, CalendarEventList, CalendarTimeStoneList } from "@/screens/calendar";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { isInInterval } from "@/utils";
 import { useFocusEffect } from "@react-navigation/native";
 import { useEffect, useState } from "react";
@@ -14,8 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function CalendarScreen() {
   const { scrollHandler, toggleTabBar } = useHideTabBar();
   const [isLoading, setLoading] = useState(false);
-  const [subjects, setSubjects] = useState<ISubject[]>([]);
-  const [todaySubjects, setTodaySubjects] = useState<ISubject[]>([]);
+  const [subjects, setSubjects] = useState<ICourse[]>([]);
+  const [todaySubjects, setTodaySubjects] = useState<ICourse[]>([]);
   const [date, setDate] = useState<Date>(new Date());
 
   useFocusEffect(() => {

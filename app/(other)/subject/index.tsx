@@ -1,7 +1,7 @@
 import { AtBottomSheet } from "@/components";
 import { Colors, space } from "@/constants";
 import { fetchSubjectDetail } from "@/helpers/subject";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useFocusEffect, useLocalSearchParams } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -11,7 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 export default function SubjectClassScreen() {
   const { subject_id } = useLocalSearchParams();
   const [isLoading, setLoading] = useState(false);
-  const [subject, setSubject] = useState<ISubject | null>(null);
+  const [subject, setSubject] = useState<ICourse | null>(null);
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
   const fetchSubject = async () => {
     try {
@@ -68,8 +68,6 @@ export default function SubjectClassScreen() {
           <Text>{subject?.start_time}</Text>
 
           {/* Giang vien */}
-
-          
         </View>
       </AtBottomSheet>
     </GestureHandlerRootView>

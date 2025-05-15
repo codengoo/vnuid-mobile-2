@@ -1,5 +1,5 @@
-import { AtInput, AtTab, Icon } from "@/components";
-import { Colors, space, Styles } from "@/constants";
+import { AtInput, AtTab, Icon, SubjectCard } from "@/components";
+import { Colors, fontSize, space, Styles } from "@/constants";
 import { fetchSearch } from "@/helpers/search";
 import { ISearchResult } from "@/types";
 import { useFocusEffect, useLocalSearchParams } from "expo-router";
@@ -13,14 +13,14 @@ export default function SearchScreen() {
   const search = queries.search as string;
   const [value, setValue] = useState<string>(search || "");
   const [isLoading, setLoading] = useState(false);
-  const [tab, setTab] = useState<ITabContentType>("subject");
+  const [tab, setTab] = useState<ITabContentType>("session");
   const [searchResult, setSearchResult] = useState<ISearchResult | null>();
 
   const tabWidth = useMemo(() => Dimensions.get("screen").width - space(20) * 2, []);
   const menuTab = useMemo(() => {
     return [
       {
-        label: "Phiên điểm danh",
+        label: "Điểm danh",
         value: "session",
       },
       {
@@ -64,18 +64,36 @@ export default function SearchScreen() {
         </View>
 
         <View style={{ flexDirection: "row" }}>
-          <AtTab value={tab} menu={menuTab} setValue={setTab} width={tabWidth} />
+          <AtTab menu={menuTab} width={tabWidth} onChange={(val) => setTab(val)} />
         </View>
       </View>
 
-      <View>
+      <ScrollView contentContainerStyle={{ gap: space(12) }}>
         {!searchResult ||
           (searchResult && tab === "session" && !searchResult.sessions.length) ||
           (searchResult && tab === "subject" && !searchResult.subjects.length && (
             <Text style={styles.text}>Không có thông tin nào</Text>
           ))}
         {isLoading && <Text style={styles.text}>Đang tìm kiếm thêm...</Text>}
-      </View>
+
+        {searchResult &&
+          tab === "session" &&
+          searchResult.sessions.map((session) => (
+            <View key={session.id} style={styles.sessionStyle}>
+              <Text key={session.id} style={styles.text}>
+                {session.name}
+              </Text>
+              <Text key={session.id} style={styles.text2}>
+                Hiệu lực trong {session.duration}m
+              </Text>
+            </View>
+          ))}
+        {searchResult &&
+          tab === "subject" &&
+          searchResult.subjects.map((subject) => (
+            <SubjectCard course={subject} includeSession={false} key={subject.id} />
+          ))}
+      </ScrollView>
     </ScrollView>
   );
 }
@@ -87,6 +105,21 @@ const styles = StyleSheet.create({
 
   text: {
     ...Styles.text,
-    textAlign: "center",
+    fontSize: fontSize(18),
+    fontWeight: "500",
+  },
+
+  text2: {
+    ...Styles.text,
+    fontSize: fontSize(14),
+    color: Colors.black500,
+  },
+
+  sessionStyle: {
+    backgroundColor: Colors.yellow300,
+    padding: space(12),
+    borderRadius: space(12),
+    borderWidth: space(2),
+    borderColor: Colors.black700,
   },
 });

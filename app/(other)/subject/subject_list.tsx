@@ -1,13 +1,13 @@
 import { SubjectCard } from "@/components";
 import { space, Styles } from "@/constants";
 import { fetchSubjects } from "@/helpers/subject";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 
 export default function SubjectList() {
   const [isLoading, setLoading] = useState(false);
-  const [subjects, setSubjects] = useState<ISubject[]>([]);
+  const [subjects, setSubjects] = useState<ICourse[]>([]);
   const preload = async () => {
     try {
       setLoading(true);
@@ -26,7 +26,7 @@ export default function SubjectList() {
   return (
     <View style={styles.container}>
       {subjects.map((subject) => {
-        return <SubjectCard subject={subject} key={subject.id} />;
+        return <SubjectCard course={subject} key={subject.id} />;
       })}
     </View>
   );

@@ -1,24 +1,24 @@
 import { COLOR, Colors, space, Styles } from "@/constants";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { formatTime } from "@/utils";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "../ui";
 
 interface ICheckinCardProps {
   isShort?: boolean;
-  subject: ISubject;
+  course: ICourse;
 }
-export function CheckinCard({ isShort, subject }: ICheckinCardProps) {
+export function SessionCard({ isShort, course }: ICheckinCardProps) {
   return (
     <>
-      {subject.session.map((session) => (
+      {course.session.map((session) => (
         <View style={styles.card_content} key={session.id}>
           <View style={styles.card_header}>
             <View>
               <Text style={styles.card_name}>{session.name}</Text>
               {!isShort && (
                 <Text style={styles.card_sub_name}>
-                  {subject.code} - {subject.name}
+                  {course.code} - {course.name}
                 </Text>
               )}
             </View>
@@ -29,7 +29,7 @@ export function CheckinCard({ isShort, subject }: ICheckinCardProps) {
 
           <View style={styles.card_details}>
             <Text style={styles.card_detail_text}>{formatTime(session.start)}</Text>
-            <Text style={styles.card_detail_text}>{subject.address}</Text>
+            <Text style={styles.card_detail_text}>{course.address}</Text>
           </View>
         </View>
       ))}

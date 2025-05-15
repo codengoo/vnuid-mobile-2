@@ -1,22 +1,27 @@
 import { COLOR, Colors, space, Styles } from "@/constants";
-import { Dispatch, SetStateAction, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { ScrollView, StyleSheet, Text, TouchableOpacity } from "react-native";
 
 interface IAtChipProps<T> {
-  setValue: Dispatch<SetStateAction<T>>;
-  value: T;
   menu: {
     label: string;
     value: T;
   }[];
   width?: number;
+  onChange?: (value: T) => void;
 }
 
-export function AtTab<T>({ value, menu, setValue, width }: IAtChipProps<T>) {
+export function AtTab<T>({ menu, width, onChange }: IAtChipProps<T>) {
   const itemWidth = useMemo(
     () => (width !== undefined ? (width - (menu.length - 1) * space(12)) / menu.length : undefined),
     [width]
   );
+  const [value, setValue] = useState<T>(menu[0].value);
+
+  const handleChangeValue = (value: T) => {
+    setValue(value);
+    onChange?.(value);
+  };
 
   return (
     <ScrollView
@@ -26,7 +31,7 @@ export function AtTab<T>({ value, menu, setValue, width }: IAtChipProps<T>) {
     >
       {menu.map((item, index) => (
         <TouchableOpacity
-          onPress={() => setValue(item.value)}
+          onPress={() => handleChangeValue(item.value)}
           style={[
             styles.chip_button,
             value === item.value && styles.chip_button_active,
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
     padding: space(8),
     paddingHorizontal: space(20),
     borderWidth: space(1),
-    borderColor: Colors.black100
+    borderColor: Colors.black100,
   },
 
   chip_text: {
@@ -63,7 +68,7 @@ const styles = StyleSheet.create({
   },
   chip_button_active: {
     backgroundColor: Colors.yellow500,
-    borderColor: Colors.yellow500
+    borderColor: Colors.yellow500,
   },
 
   text_chip_active: {

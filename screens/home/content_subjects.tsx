@@ -1,7 +1,8 @@
 import { AtTab, SubjectCard } from "@/components";
 import { COLOR, Colors, FontFamily, fontSize, space, Styles } from "@/constants";
 import { fetchSubjects } from "@/helpers/subject";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
+import { addDays, startOfWeek } from "date-fns";
 import { router } from "expo-router";
 import { useEffect, useMemo, useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -10,8 +11,7 @@ type ITabContentType = "today" | "week";
 export function HomeContentSubject() {
   const gotoSubjectList = () => router.push("/subject/subject_list");
   const [isLoading, setLoading] = useState(false);
-  const [subjects, setSubjects] = useState<ISubject[]>([]);
-  const [tab, setTab] = useState<ITabContentType>("today");
+  const [subjects, setSubjects] = useState<ICourse[]>([]);
 
   const tabMenu = useMemo(() => {
     return [
@@ -25,15 +25,25 @@ export function HomeContentSubject() {
       },
     ] satisfies { label: string; value: ITabContentType }[];
   }, []);
-  const preload = async () => {
+  const preload = async (filter: ITabContentType = "today") => {
     try {
       setLoading(true);
-      const data = await fetchSubjects();
+      const data =
+        filter === "today"
+          ? await fetchSubjects(new Date(), new Date())
+          : await fetchSubjects(
+              startOfWeek(new Date(), { weekStartsOn: 1 }),
+              addDays(startOfWeek(new Date(), { weekStartsOn: 1 }), 6)
+            );
       if (data) setSubjects(data);
     } catch (error) {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleOnChangeTab = (value: ITabContentType) => {
+    preload(value);
   };
 
   useEffect(() => {
@@ -49,13 +59,13 @@ export function HomeContentSubject() {
         </TouchableOpacity>
       </View>
 
-      <AtTab value={tab} setValue={setTab} menu={tabMenu} />
+      <AtTab menu={tabMenu} onChange={handleOnChangeTab} />
 
       {subjects.map((subject, index) => {
         return (
           <View key={subject.id}>
-            {index === 0 && <SubjectCard isHighlighted subject={subject} />}
-            {index !== 0 && <SubjectCard subject={subject} />}
+            {index === 0 && <SubjectCard isHighlighted course={subject} />}
+            {index !== 0 && <SubjectCard course={subject} />}
           </View>
         );
       })}

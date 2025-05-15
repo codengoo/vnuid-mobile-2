@@ -1,10 +1,10 @@
 import { Colors, space } from "@/constants";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { StyleSheet, View } from "react-native";
 import { CalendarEvent } from "../calendar_event";
 
 interface ICalendarEventListProps {
-  subjects: ISubject[];
+  subjects: ICourse[];
 }
 
 export function CalendarEventList({ subjects }: ICalendarEventListProps) {

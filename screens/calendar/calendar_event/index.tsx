@@ -1,12 +1,11 @@
 import { Colors, fontSize, space, Styles } from "@/constants";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { differenceInHours, set, startOfDay, startOfHour } from "date-fns";
-import { router } from "expo-router";
 import { useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ICalendarEventProp {
-  subject: ISubject;
+  subject: ICourse;
 }
 export function CalendarEvent({ subject }: ICalendarEventProp) {
   const height = useMemo(() => {
@@ -22,11 +21,10 @@ export function CalendarEvent({ subject }: ICalendarEventProp) {
     return hours * space(70);
   }, [subject]);
 
-  const navigateToSubjectDetails = () => router.navigate(`/subject?subject_id=${subject.id}`);
+  // const navigateToSubjectDetails = () => router.navigate(`/subject?subject_id=${subject.id}`);
 
   return (
     <TouchableOpacity
-      onPress={navigateToSubjectDetails}
       style={[
         styles.container,
         height != undefined && { height },

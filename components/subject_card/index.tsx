@@ -1,13 +1,14 @@
 import { COLOR, Colors, fontSize, space, Styles } from "@/constants";
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { CheckinCard } from "./checkin_card";
+import { SessionCard } from "./checkin_card";
 
 interface ISubjectCardProps {
-  subject: ISubject;
+  course: ICourse;
   isHighlighted?: boolean;
+  includeSession?: boolean;
 }
-export function SubjectCard({ isHighlighted, subject }: ISubjectCardProps) {
+export function SubjectCard({ isHighlighted, course, includeSession = true }: ISubjectCardProps) {
   return (
     <View style={styles.card_container}>
       {isHighlighted && (
@@ -18,11 +19,15 @@ export function SubjectCard({ isHighlighted, subject }: ISubjectCardProps) {
       )}
       {!isHighlighted && (
         <>
-          <Text style={styles.subjectTitle}>{subject.code} - {subject.name}</Text>
+          <Text style={styles.subjectTitle}>
+            {course.code} - {course.name}
+          </Text>
         </>
       )}
 
-      <CheckinCard isShort={!isHighlighted} subject={subject}/>
+      {includeSession && course.session && (
+        <SessionCard isShort={!isHighlighted} course={course} />
+      )}
     </View>
   );
 }
@@ -41,6 +46,6 @@ const styles = StyleSheet.create({
   subjectTitle: {
     ...Styles.text,
     fontSize: fontSize(20),
-    fontWeight: "600",
+    fontWeight: "600"
   },
 });

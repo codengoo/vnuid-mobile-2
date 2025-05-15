@@ -26,8 +26,6 @@ export function CameraScanFace({ children, onResult, embedding }: ICameraScanFac
         lastProcessedTimeRef.current = now;
 
         if (plugin == null) throw new Error("Failed to load Frame Processor Plugin!");
-        
-        console.log("Here", embedding?.length);
         const emb = embedding ?? emd.embedding;
         const raw = plugin.call(frame, { embedding: emb, position: "front" });
         try {

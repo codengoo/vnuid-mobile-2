@@ -1,4 +1,4 @@
-import { ISubject } from "@/types";
+import { ICourse } from "@/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { STG_AUTH_TOKEN } from "../constants";
 import { axios } from "../network";
@@ -14,7 +14,7 @@ export async function fetchSubjectDetail(sid: string) {
       },
     });
     const subject = response.data.data;
-    return subject as ISubject;
+    return subject as ICourse;
   } catch (error) {
     throw error;
   }
