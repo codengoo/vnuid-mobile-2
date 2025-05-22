@@ -2,7 +2,7 @@ import { AtInput, Icon } from "@/components";
 import { LoginContentLayout, LoginDecoratorLayout, LoginLayout } from "@/components/layout";
 import { space } from "@/constants";
 import { useUser } from "@/context";
-import { handleLoginBase, signInWithCode2Fa } from "@/helpers/login";
+import { handleLoginBase, signInWithOTP2Fa } from "@/helpers/login";
 import { HeaderLogin, LoginSave } from "@/screens/login";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -16,7 +16,7 @@ export default function LoginCode2faScreen() {
   const { t } = useTranslation("login");
 
   const handleLogin = async () => {
-    await handleLoginBase(() => signInWithCode2Fa(code, isSave), setLoading, setUser, t, true);
+    await handleLoginBase(() => signInWithOTP2Fa(code, isSave), setLoading, setUser, t, true);
   };
 
   return (

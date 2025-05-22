@@ -17,12 +17,12 @@ async function switchLogin(data: IResponseLogin, status: number) {
 }
 
 export async function signInWith2FaPass(password: string, save: boolean) {
-  const _2faToken = await AsyncStorage.getItem(STG_AUTH_2FA_TOKEN);
-  if (!_2faToken || _2faToken.trim() === "") {
-    throw new Error("Missing 2fa token");
-  }
-
   try {
+    const _2faToken = await AsyncStorage.getItem(STG_AUTH_2FA_TOKEN);
+    if (!_2faToken || _2faToken.trim() === "") {
+      throw new Error("Missing 2fa token");
+    }
+
     const fetcher = await getFetcher(false);
     if (!fetcher) return null;
 
@@ -40,12 +40,18 @@ export async function signInWith2FaPass(password: string, save: boolean) {
   }
 }
 
-export async function signInWithCode2Fa(code: string, save: boolean) {
+export async function signInWithOTP2Fa(code: string, save: boolean) {
   try {
+    const _2faToken = await AsyncStorage.getItem(STG_AUTH_2FA_TOKEN);
+    if (!_2faToken || _2faToken.trim() === "") {
+      throw new Error("Missing 2fa token");
+    }
+
     const fetcher = await getFetcher(false);
     if (!fetcher) return null;
 
-    const response = await fetcher.post("/auth/login_code_2fa_accept", {
+    const response = await fetcher.post("/auth/login_otp_2fa", {
+      token: _2faToken,
       code: code,
       save_device: save,
     });

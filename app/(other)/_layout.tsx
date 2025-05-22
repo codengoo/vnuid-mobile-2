@@ -27,6 +27,7 @@ export default function OtherLayout() {
       <Stack.Screen name="setup/language" options={{ headerTitle: "Ngôn ngữ" }} />
       <Stack.Screen name="setup/verify_password" options={{ headerTitle: "Xác thực" }} />
       <Stack.Screen name="setup/verify_fingerprint" options={{ headerTitle: "Xác thực vân tây" }} />
+      <Stack.Screen name="setup/verify_mfa" options={{ headerTitle: "Xác thực MFA" }} />
 
       <Stack.Screen name="subject/checkin_history" options={{ headerTitle: "Lịch sử điểm danh" }} />
       <Stack.Screen name="subject/subject_list" options={{ headerTitle: "Danh sách môn học" }} />

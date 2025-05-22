@@ -47,7 +47,13 @@ export default function Login2FaScreen() {
           )}
 
           {allowMethods.includes("otp") && (
-            <AtButtonBox title="Enter MFA code" color="yellow" icon={Icon.AsteriskIcon} widthFull />
+            <AtButtonBox
+              title="Enter MFA code"
+              color="yellow"
+              icon={Icon.AsteriskIcon}
+              widthFull
+              onPress={() => router.push({ pathname: "/login/2fa_mfa" })}
+            />
           )}
 
           {allowMethods.includes("pass") && (

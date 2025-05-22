@@ -26,6 +26,24 @@ export async function setBio(password: string): Promise<boolean> {
   }
 }
 
+export async function setAuthenticator(password: string): Promise<string | null> {
+  const fetcher = await getFetcher();
+  if (!fetcher) return null;
+
+  try {
+    const response = await fetcher.post("/auth/set_authenticator", {
+      password: password,
+    });
+    console.log(response.data);
+    if (response.status === 200) return response.data.data.code;
+
+    return null;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
+
 export async function checkPass(password: string): Promise<boolean> {
   const fetcher = await getFetcher();
   if (!fetcher) return false;
