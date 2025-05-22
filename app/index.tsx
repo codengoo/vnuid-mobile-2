@@ -3,12 +3,23 @@ import { COLOR, Colors, Space, space, Styles } from "@/constants";
 import { router } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { Image, StatusBar, StyleSheet, Text, View } from "react-native";
+import DeviceInfo from "react-native-device-info";
 import { SafeAreaView } from "react-native-safe-area-context";
+import Toast from "react-native-toast-message";
 export default function Onboarding() {
   const { t } = useTranslation("onboard");
 
-  const handlePressLogin = () => {
-    router.push("/login");
+  const handlePressLogin = async () => {
+    const isVirtualDevice = await DeviceInfo.isEmulator();
+    if (isVirtualDevice) {
+      Toast.show({
+        type: "error",
+        text1: "Failed",
+        text2: "Please use a real device",
+      });
+    } else {
+      router.push("/login");
+    }
   };
 
   return (
@@ -36,12 +47,7 @@ export default function Onboarding() {
           </View>
         </View>
 
-        <AtButtonBox
-          onPress={handlePressLogin}
-          title="Login to start"
-          center
-          color="green"
-        />
+        <AtButtonBox onPress={handlePressLogin} title="Login to start" center color="green" />
       </SafeAreaView>
     </View>
   );
@@ -91,6 +97,6 @@ const styles = StyleSheet.create({
 
   descriptionText: {
     ...Styles.subText,
-    textAlign: "center"
+    textAlign: "center",
   },
 });
