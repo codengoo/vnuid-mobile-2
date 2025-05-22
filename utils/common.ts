@@ -1,4 +1,4 @@
-import { differenceInCalendarDays, isBefore, startOfDay } from "date-fns";
+import { differenceInCalendarDays, format, isBefore, startOfDay } from "date-fns";
 
 export const random = (start: number, end: number) =>
   Math.floor(Math.random() * (end - start) + start);
@@ -31,4 +31,14 @@ export const isInInterval = (eventStart: Date, checkDate: Date) => {
 export const formatTime = (time: Date | string) => {
   const date = new Date(time);
   return `${date.getHours()}h${date.getMinutes()}`;
+};
+
+export function formatDateTime(date: Date | string = new Date()) {
+  try {
+    const datetime = new Date(date);
+    const result = format(datetime, "dd-MM-yyyy hh:mm");
+    return result;
+  } catch (error) {
+    return null;
+  }
 }

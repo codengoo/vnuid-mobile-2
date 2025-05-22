@@ -68,11 +68,11 @@ export default function CheckinScreen() {
     }
   };
 
-  const handleCompleteCheckin = () => {
+  const handleCompleteCheckin = async () => {
     try {
       setLoading(true);
       if (isWifiOk && sessions && sessions[0]) {
-        checkin(sessions[0].id);
+        await checkin(sessions[0].id);
         Toast.show({
           type: "success",
           text1: "Thành công",

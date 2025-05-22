@@ -1,17 +1,42 @@
 import { AtChip } from "@/components";
 import { fontSize, space, Styles } from "@/constants";
+import { getCheckinHistory } from "@/helpers/checkin";
+import { ICheckin } from "@/types";
+import { formatDateTime } from "@/utils";
+import { useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default function CheckinStoryScreen() {
+  const [checkins, setCheckins] = useState<ICheckin[]>([]);
+  const preload = async () => {
+    try {
+      const data = await getCheckinHistory();
+      if (data) setCheckins(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useFocusEffect(
+    useCallback(() => {
+      preload();
+    }, [])
+  );
+
   return (
     <View style={styles.container}>
-      <View style={styles.card}>
-        <Text style={styles.cardText}>Công nghệ phần mềm</Text>
-        <View style={{ gap: space(8), flexDirection: "row", alignItems: "center" }}>
-          <Text style={styles.cardText2}>Checkin 7:00</Text>
-          <AtChip label="07:00:00 12/05/2025" />
-        </View>
-      </View>
+      {checkins.length > 0
+        ? checkins.map((item) => (
+            <View style={styles.card} key={item.id}>
+              <Text style={styles.cardText}>{item.course.name}</Text>
+              <View style={{ gap: space(8), flexDirection: "row", alignItems: "center" }}>
+                <Text style={styles.cardText2}>{item.session.name}</Text>
+                <AtChip label={formatDateTime(item.time) || ""} />
+              </View>
+            </View>
+          ))
+        : null}
     </View>
   );
 }

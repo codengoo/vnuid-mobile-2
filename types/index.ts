@@ -71,3 +71,16 @@ export interface IWifi {
   name: string;
   mac: string;
 }
+
+export interface ICheckin {
+  id: string;
+  time: string;
+  verified: boolean;
+  device_id: string;
+  student_id: string;
+  session_cycle_id: string;
+  session_id: string;
+  course_id: string;
+  course: ICourse;
+  session: ISession;
+}
