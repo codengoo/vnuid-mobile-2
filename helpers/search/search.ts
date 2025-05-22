@@ -1,19 +1,14 @@
 import { ISearchResult } from "@/types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { STG_AUTH_TOKEN } from "../constants";
-import { axios } from "../network";
+import { getFetcher } from "../network";
 
 export async function fetchSearch(searchText: string) {
-  const token = await AsyncStorage.getItem(STG_AUTH_TOKEN);
-  if (!token) return null;
+  const fetcher = await getFetcher();
+  if (!fetcher) return null;
 
   try {
-    const response = await axios.get(`/search`, {
+    const response = await fetcher.get(`/search`, {
       params: {
         search: searchText,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
       },
     });
     const subject = response.data.data;

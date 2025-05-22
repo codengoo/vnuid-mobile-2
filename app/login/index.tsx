@@ -3,6 +3,7 @@ import { GoogleIcon, QRIcon } from "@/components/ui/icon";
 import { COLOR, Space, space, Styles } from "@/constants";
 import { useUser } from "@/context";
 import { handleLoginBase, signInWithBio, signInWithGoogle } from "@/helpers/login";
+import { ButtonChangeIP } from "@/screens/common";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { router } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -43,6 +44,7 @@ export default function LoginMainScreen() {
       <StatusBar hidden />
       <SafeAreaView style={styles.header} edges={["top"]}>
         <View style={styles.langWrapper}>
+          <ButtonChangeIP />
           <ButtonLang />
         </View>
         <Image
@@ -115,6 +117,7 @@ export const styles = StyleSheet.create({
     justifyContent: "flex-end",
     width: "100%",
     paddingHorizontal: Space.sd,
+    gap: Space.sm,
   },
 
   touchBtn: {

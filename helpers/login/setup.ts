@@ -1,26 +1,18 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as LocalAuthentication from "expo-local-authentication";
-import { STG_AUTH_BIO, STG_AUTH_TOKEN } from "../constants";
-import { axios } from "../network";
+import { STG_AUTH_BIO } from "../constants";
+import { getFetcher } from "../network";
 export async function setBio(password: string): Promise<boolean> {
   const { success } = await LocalAuthentication.authenticateAsync();
   if (!success) return false;
 
-  const token = await AsyncStorage.getItem(STG_AUTH_TOKEN);
-  if (!token) return false;
+  const fetcher = await getFetcher();
+  if (!fetcher) return false;
 
   try {
-    const response = await axios.post(
-      "/auth/set_biometric",
-      {
-        password: password,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetcher.post("/auth/set_biometric", {
+      password: password,
+    });
 
     if (response.status === 200) {
       await AsyncStorage.setItem(STG_AUTH_BIO, response.data.data.key);
@@ -35,21 +27,13 @@ export async function setBio(password: string): Promise<boolean> {
 }
 
 export async function checkPass(password: string): Promise<boolean> {
-  const token = await AsyncStorage.getItem(STG_AUTH_TOKEN);
-  if (!token) return false;
+  const fetcher = await getFetcher();
+  if (!fetcher) return false;
 
   try {
-    const response = await axios.post(
-      "/auth/check_password",
-      {
-        password: password,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetcher.post("/auth/check_password", {
+      password: password,
+    });
 
     if (response.status === 200) {
       return response.data.data.valid;

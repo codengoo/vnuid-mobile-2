@@ -1,18 +1,12 @@
 import { ICourse } from "@/types";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { STG_AUTH_TOKEN } from "../constants";
-import { axios } from "../network";
+import { getFetcher } from "../network";
 
 export async function fetchSubjectDetail(sid: string) {
-  const token = await AsyncStorage.getItem(STG_AUTH_TOKEN);
-  if (!token) return null;
+  const fetcher = await getFetcher();
+  if (!fetcher) return false;
 
   try {
-    const response = await axios.get(`/subject/class/${sid}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await fetcher.get(`/subject/class/${sid}`);
     const subject = response.data.data;
     return subject as ICourse;
   } catch (error) {

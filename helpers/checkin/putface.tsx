@@ -1,21 +1,13 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { STG_AUTH_TOKEN, STG_FACE_EMD } from "../constants";
-import { axios } from "../network";
+import { STG_FACE_EMD } from "../constants";
+import { getFetcher } from "../network";
 
 export async function registerFace(face: number[]) {
-  const token = await AsyncStorage.getItem(STG_AUTH_TOKEN);
-  if (!token) return false;
+  const fetcher = await getFetcher();
+  if (!fetcher) return false;
 
   try {
-    const response = await axios.post(
-      "/checkin/face/register",
-      { embedding: face },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await fetcher.post("/checkin/face/register", { embedding: face });
 
     if (response.status === 200) {
       await AsyncStorage.setItem(STG_FACE_EMD, JSON.stringify(face));

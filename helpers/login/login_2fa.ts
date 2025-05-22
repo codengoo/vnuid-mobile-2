@@ -2,7 +2,7 @@ import { IResponseLogin } from "@/types";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { STG_AUTH_2FA_TOKEN, STG_AUTH_TOKEN } from "../constants";
-import { axios } from "../network";
+import { getFetcher } from "../network";
 
 async function switchLogin(data: IResponseLogin, status: number) {
   switch (status) {
@@ -23,7 +23,10 @@ export async function signInWith2FaPass(password: string, save: boolean) {
   }
 
   try {
-    const response = await axios.post("/auth/login_pass_2fa", {
+    const fetcher = await getFetcher(false);
+    if (!fetcher) return null;
+
+    const response = await fetcher.post("/auth/login_pass_2fa", {
       token: _2faToken,
       password: password,
       save_device: save,
@@ -39,7 +42,10 @@ export async function signInWith2FaPass(password: string, save: boolean) {
 
 export async function signInWithCode2Fa(code: string, save: boolean) {
   try {
-    const response = await axios.post("/auth/login_code_2fa_accept", {
+    const fetcher = await getFetcher(false);
+    if (!fetcher) return null;
+
+    const response = await fetcher.post("/auth/login_code_2fa_accept", {
       code: code,
       save_device: save,
     });
@@ -59,7 +65,10 @@ export async function signInWithNfc2Fa(nfc: string, save: boolean) {
       throw new Error("Missing 2fa token");
     }
 
-    const response = await axios.post("/auth/login_nfc_2fa", {
+    const fetcher = await getFetcher(false);
+    if (!fetcher) return null;
+
+    const response = await fetcher.post("/auth/login_nfc_2fa", {
       token: _2faToken,
       nfc_code: nfc,
       save_device: save,

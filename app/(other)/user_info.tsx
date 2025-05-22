@@ -4,14 +4,6 @@ import { useUser } from "@/context";
 import { ContextItem } from "@/screens/admin_contact";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-interface UserInfo {
-  name: string;
-  official_class: string;
-  department: string;
-  email: string;
-  phone: string;
-  address: string;
-}
 
 export default function AdminContact() {
   const { user } = useUser();

@@ -5,7 +5,7 @@ import * as LocalAuthentication from "expo-local-authentication";
 import { router } from "expo-router";
 import DeviceInfo from "react-native-device-info";
 import { STG_AUTH_2FA_TOKEN, STG_AUTH_BIO, STG_AUTH_TOKEN, STG_UID } from "../constants";
-import { axios } from "../network";
+import { getFetcher } from "../network";
 
 GoogleSignin.configure({
   webClientId: "842014203560-5h2ec7sni2ag0v1u8v3gm4hn851qo8ur.apps.googleusercontent.com",
@@ -55,7 +55,10 @@ export async function signInWithPass(username: string, password: string) {
   const deviceName = await DeviceInfo.getDeviceName();
 
   try {
-    const response = await axios.post("/auth/login_pass", {
+    const fetcher = await getFetcher(false);
+    if (!fetcher) throw new Error("no fetcher");
+
+    const response = await fetcher.post("/auth/login_pass", {
       password: password,
       username: username,
       device_id: deviceID,
@@ -76,7 +79,10 @@ export async function signInWithGoogle() {
   const deviceID = await DeviceInfo.getUniqueId();
   const deviceName = await DeviceInfo.getDeviceName();
 
-  const response = await axios.post("/auth/login_google", {
+  const fetcher = await getFetcher(false);
+  if (!fetcher) throw new Error("no fetcher");
+
+  const response = await fetcher.post("/auth/login_google", {
     id_token: idToken,
     device_id: deviceID,
     device_name: deviceName,
@@ -91,7 +97,9 @@ export async function signInWithNfc(nfc: string, uid: string) {
   const deviceName = await DeviceInfo.getDeviceName();
 
   try {
-    const response = await axios.post("/auth/login_nfc", {
+    const fetcher = await getFetcher(false);
+    if (!fetcher) throw new Error("no fetcher");
+    const response = await fetcher.post("/auth/login_nfc", {
       nfc_code: nfc,
       uid: uid,
       device_id: deviceID,
@@ -116,7 +124,9 @@ export async function signInWithBio() {
   const deviceID = await DeviceInfo.getUniqueId();
   const deviceName = await DeviceInfo.getDeviceName();
 
-  const response = await axios.post("/auth/login_bio", {
+  const fetcher = await getFetcher(false);
+  if (!fetcher) throw new Error("no fetcher");
+  const response = await fetcher.post("/auth/login_bio", {
     device_id: deviceID,
     device_name: deviceName,
     uid: uid,
